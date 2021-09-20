@@ -1,4 +1,4 @@
-# The Site Configuration
+﻿# The Site Configuration
 
 # Import the theme
 theme: jekyll-theme-chirpy
@@ -20,7 +20,7 @@ timezone: Asia/Seoul
 
 title: 소여니네                          # the main title
 
-tagline: Web developer   # it will display as the sub-title
+tagline: 웹 개발자   # it will display as the sub-title
 
 description: >-                        # used by seo meta and the atom feed
   A minimal, portfolio, sidebar,
