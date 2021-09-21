@@ -240,11 +240,7 @@
       }
     }
     > i {
-      position: relative;
-      bottom: 1px;
-
-      @extend %cursor-pointer;
-
+      padding-top: 0.35rem;
       &:hover {
         @extend %btn-share-hovor;
       }
@@ -303,6 +299,16 @@
       margin-top: 1rem;
     }
   }
+
+  .post-content > div[class^='language-'] {
+    @include ml-mr(-1.25rem);
+
+    border-radius: 0;
+    &::before { // the lang badge
+      right: 1rem;
+    }
+  }
+
 }
 
 @media all and (max-width: 768px) {

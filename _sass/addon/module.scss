@@ -3,11 +3,18 @@
 */
 
 /* ---------- scss placeholder --------- */
+@font-face {
+  font-family: 'SpoqaHanSansNeo-Light';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SpoqaHanSansNeo-Light.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
 
 %heading {
   color: var(--heading-color);
   font-weight: 400;
-  font-family: 'Lato', 'Microsoft Yahei', sans-serif;
+  font-family: 'SpoqaHanSansNeo-Light', sans-serif;
 }
 
 %tag-hover {
@@ -22,8 +29,8 @@
 }
 
 %link-hover {
-  color: #d2603a !important;
-  border-bottom: 1px solid #d2603a;
+  color: #065bdb !important;
+  border-bottom: 1px solid #065bdb;
   text-decoration: none;
 }
 
@@ -51,17 +58,13 @@
   margin-top: -2.5rem;
 }
 
-%cursor-pointer {
-  cursor: pointer;
-}
-
 /* ---------- scss mixin --------- */
 
 @mixin no-text-decoration {
   text-decoration: none;
 }
 
-@mixin sidebar-links($color: rgba(255, 255, 255, 0.5)) {
+@mixin sidebar-links($color: rgba(255, 255, 255, 0.7)) {
   color: $color;
   transition: color 0.35s ease-in-out;
   user-select: none;
