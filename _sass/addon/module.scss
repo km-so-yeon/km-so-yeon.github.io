@@ -10,11 +10,10 @@
   font-style: normal;
 }
 
-
 %heading {
   color: var(--heading-color);
   font-weight: 400;
-  font-family: 'SpoqaHanSansNeo-Light', sans-serif;
+  font-family: 'SpoqaHanSansNeo-Light', 'Microsoft Yahei', sans-serif;
 }
 
 %tag-hover {
@@ -56,6 +55,10 @@
 %anchor {
   padding-top: 3.5rem;
   margin-top: -2.5rem;
+}
+
+%cursor-pointer {
+  cursor: pointer;
 }
 
 /* ---------- scss mixin --------- */
