@@ -70,7 +70,7 @@ person2.sayHi();	// Hi, I'm Joy
 
 ```javascript
 // 생성
-fucntion Person(name) {
+function Person(name) {
     this.name = name;
     this.sayHi = function() {
         alert("Hi, I'm " + this.name);
@@ -124,10 +124,37 @@ person2.sayHi()		// Hi, I'm Soyeon
 
 # 프로토타입 (prototype)
 
+- 객체는 상속받은 멤버를 접근할 때 프로토타입 체인을 타고 올라가며 찾는다. (복사되는 것이 아님)
+
+### 프로토타입 속성
+
+- 상속하고자 하는 속성과 메소드를 담아두는 하나의 객체
+
+```javascript
+// Person을 상속받은 객체에서 사용 가능한 속성과 메소드들을 확인
+Person.prototype
+
+// 프로토타입 객체 접근
+var person1 = Object.create(person2);
+person1.__proto__						// person2	
+```
+
+### 생성자 속성 (constructor)
+
+* 객체에서 자신을 만든 생성자를 호출하고자 할 때 사용하는 속성
+
+```javascript
+person1.constructor						// Person()
+
+// constructor를 이용하여 새로운 객체 생성
+var person3 = new person1.constructor('Soyeon');
+```
+
+### 프로토타입 수정
 
 
 
 
 # 출처 📎
 
-()[https://developer.mozilla.org/]
+[](https://developer.mozilla.org/)
