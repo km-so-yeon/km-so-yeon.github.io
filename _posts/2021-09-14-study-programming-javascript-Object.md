@@ -152,6 +152,16 @@ var person3 = new person1.constructor('Soyeon');
 
 ### 프로토타입 수정
 
+```javascript
+Person.prototype.fullName = this.name.first + ' ' + this.name.last;
+Person.prototype.callMyName = function() { ... };
+```
+
+- 속성을 생성자 밖에서 정의할 때 
+  상수를 넣어줄 경우, 객체를 생성할 때마다 같은 값이 되어 좋은 방법이 아니고,
+  `this` 를 이용할 경우, 함수 범위가 아닌 전역 범위를 가리키므로 의도대로 동작하지 않는다.
+- 그러므로, 보통 속성은 생성자에서 메소드는 프로토타입에서 정의한다.
+
 
 
 
