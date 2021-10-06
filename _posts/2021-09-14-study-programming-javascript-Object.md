@@ -23,7 +23,7 @@ var person = {
 - 객체 : 데이터와 함수의 집합 *person*
 - 프로퍼티(속성) : 객체 내부의 속성 *name, age*
 - 메소드 : 객체 내부의 함수 *sayHi*
-- 객체 리터럴(object literal) : 내용을 그대로 대입해서 생성한 객체
+- 객체 리터럴(object literal) : 생성자로 생성하지 않고, 내용을 그대로 대입해서 생성한 객체
 
 ## 접근 & 설정
 
@@ -157,9 +157,10 @@ Person.prototype.fullName = this.name.first + ' ' + this.name.last;
 Person.prototype.callMyName = function() { ... };
 ```
 
-- 속성을 생성자 밖에서 정의할 때 
-  상수를 넣어줄 경우, 객체를 생성할 때마다 같은 값이 되어 좋은 방법이 아니고,
-  `this` 를 이용할 경우, 함수 범위가 아닌 전역 범위를 가리키므로 의도대로 동작하지 않는다.
+속성을 생성자 밖에서 정의할 때 
+상수를 넣어줄 경우, 객체를 생성할 때마다 같은 값이 되어 좋은 방법이 아니고,
+`this` 를 이용할 경우, 함수 범위가 아닌 전역 범위를 가리키므로 의도대로 동작하지 않는다.
+
 - 그러므로, 보통 속성은 생성자에서 메소드는 프로토타입에서 정의한다.
 
 
@@ -167,4 +168,4 @@ Person.prototype.callMyName = function() { ... };
 
 # 출처 📎
 
-[](https://developer.mozilla.org/)
+[Mozilla](https://developer.mozilla.org/)
