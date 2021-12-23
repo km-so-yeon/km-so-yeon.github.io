@@ -4,7 +4,6 @@ author: "김소연"
 date: 2021-12-23 22:00:00 -0500
 categories: [Study, Programming]
 tags: [SQL]
-published: false
 ---
 
 ## 응시하게 된 이유
