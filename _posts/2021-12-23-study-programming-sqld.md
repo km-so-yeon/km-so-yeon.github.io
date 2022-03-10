@@ -20,7 +20,7 @@ typora-root-url: ../
 노랭이책으로 문제풀이하면서 시험에 대한 감이 잡혔다.
 
 # 결과
-![sqld](./assets/img/sqld.JPG){:width="80%" height="80%"}
+![sqld](/assets/img/sqld.JPG){:width="80%" height="80%"}
 
 SQL 개념을 정리하는 시간을 가져서 좋았고
 자격증이라는 눈으로 보이는 결과가 나와서 뿌듯했다.
