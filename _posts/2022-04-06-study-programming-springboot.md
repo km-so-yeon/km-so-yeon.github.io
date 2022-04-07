@@ -94,7 +94,7 @@ tags: [SpringBoot]
 
   - spring-security-test 의존성 추가 : pom.xml
 
-    ```
+    ```xml
     		<dependency>
     			<groupId>org.springframework.security</groupId>
     			<artifactId>spring-security-test</artifactId>
@@ -105,7 +105,7 @@ tags: [SpringBoot]
 
   - test 컨트롤러 생성 : test.com.shop.controller.MemberControllerTest.java
 
-    ```
+    ```java
     @SpringBootTest
     @AutoConfigureMockMvc
     @Transactional
@@ -291,6 +291,6 @@ tags: [SpringBoot]
 
 
 
-### 출처
+### 출처📎
 
 백견불여일타 스프링 부터 쇼핑몰 프로젝트 with JPA
