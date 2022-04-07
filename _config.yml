@@ -18,9 +18,9 @@ timezone: Asia/Seoul
 # jekyll-seo-tag settings › https://github.com/jekyll/jekyll-seo-tag/blob/master/docs/usage.md
 # ↓ --------------------------
 
-title: 소여니네                          # the main title
+title: 쏘                          # the main title
 
-tagline: 웹 개발자   # it will display as the sub-title
+tagline: 오늘보다 나은   # it will display as the sub-title
 
 description: >-                        # used by seo meta and the atom feed
   A minimal, portfolio, sidebar,
