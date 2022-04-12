@@ -1,7 +1,7 @@
 ---
 title: "[JPA] Auditing 기능"
 author: "김소연"
-date: 2022-04-11 21:00:00 -0500
+date: 2022-04-12 21:00:00 -0500
 categories: [Study, Programming]
 tags: [JPA]
 ---
