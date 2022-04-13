@@ -62,6 +62,13 @@ a = 'hello'
 a = "hello"
 a = '''hello'''
 a = """hello"""
+
+a = '"hello"'		// "hello"
+a = '\'hello\''		// 'hello'
+a = """hello
+world"""
+// hello
+world
 ```
 
 - `'`, `"` 포함시키기
@@ -80,7 +87,7 @@ a[-2]		// 음수 결과 : l
 ```
 
 - 0부터 시작
-- [시작:끝] : 끝 글자 전까지 return (0 <= a < 3)
+- [시작:끝] : 끝 글자 전까지 return (시작 <= a < 끝)
 - 음수일 경우 마지막 글자부터 -1
 
 #### 연산
