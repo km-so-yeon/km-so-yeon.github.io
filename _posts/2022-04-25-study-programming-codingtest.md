@@ -1,7 +1,7 @@
 ---
-title: "[Python] 파이썬 기본 문법 for 코딩테스트"
+title: "[Python] 코딩테스트 유형 정리"
 author: "김소연"
-date: 2022-04-13 21:00:00 -0500
+date: 2022-04-25 21:00:00 -0500
 categories: [Study, Programming]
 tags: [Python]
 ---
