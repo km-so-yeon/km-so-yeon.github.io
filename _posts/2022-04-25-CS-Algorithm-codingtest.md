@@ -2,7 +2,7 @@
 title: "[Python] 코딩테스트 유형 정리"
 author: "김소연"
 date: 2022-04-25 21:00:00 -0500
-categories: [Study, Programming]
+categories: [Computer Science, Algorithm]
 tags: [Python]
 ---
 
