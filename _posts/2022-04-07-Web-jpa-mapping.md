@@ -2,7 +2,7 @@
 title: "[JPA] 연관 관계 매핑"
 author: "김소연"
 date: 2022-04-07 22:00:00 -0500
-categories: [Study, Programming]
+categories: [Web Application]
 tags: [JPA]
 ---
 
