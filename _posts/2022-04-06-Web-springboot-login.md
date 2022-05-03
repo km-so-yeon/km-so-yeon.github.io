@@ -2,7 +2,7 @@
 title: "[SpringBoot] 로그인 기능 구현하기(스프링 시큐리티)"
 author: "김소연"
 date: 2022-04-06 22:00:00 -0500
-categories: [Study, Programming]
+categories: [Web Application]
 tags: [SpringBoot]
 ---
 
