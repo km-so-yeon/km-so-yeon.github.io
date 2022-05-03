@@ -2,7 +2,7 @@
 title: "[SQL] SQL 개념 정리"
 author: "김소연"
 date: 2021-10-14 22:00:00 -0500
-categories: [Study, Programming]
+categories: [Language]
 tags: [SQL]
 published: false
 ---
