@@ -2,7 +2,7 @@
 title: "[SQL] 43회 SQLD 합격 후기"
 author: "김소연"
 date: 2021-12-23 22:00:00 -0500
-categories: [Study, Programming]
+categories: [Review]
 tags: [SQL]
 typora-root-url: ../
 ---
