@@ -2,7 +2,7 @@
 title: "[Javascript] 자바스크립트 정수/실수 체크하기 (+소수점 몇자리 이하인지 체크하기)"
 author: "김소연"
 date: 2021-08-31 22:00:00 -0500
-categories: [Study, Programming]
+categories: [Language]
 tags: [Javascript]
 ---
 
