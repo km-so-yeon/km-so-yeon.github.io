@@ -2,7 +2,7 @@
 title: "[Spring] 스프링 입문"
 author: "김소연"
 date: 2022-05-02 21:00:00 -0500
-categories: [Study, Programming]
+categories: [Web Application]
 tags: [Spring]
 ---
 
