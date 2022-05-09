@@ -1,5 +1,5 @@
 ---
-title: "[Spring] 스프링 동작 과정"
+title: "[Spring] 스프링 MVC 동작 과정"
 author: "김소연"
 date: 2022-05-04 21:00:00 -0500
 categories: [Web Application]
