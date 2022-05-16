@@ -177,11 +177,85 @@ class ItemRepositoryTest {
 
 2. QuerydslRedicateExecutor 사용
 
+```java
+public interface ItemRepository extends JpaRepository<Item, Long>,
+        QuerydslPredicateExecutor<Item>{
+ 	// ...       
+}
+```
+
+Repository에서 `QuerydslRedicateExecutor` 를 상속받는다. (JpaRepository를 상속받고 있어야 한다.)
+
+```java
+class ItemRepositoryTest {
+
+  	@Autowired
+    ItemRepository itemRepository;
+  
+	@Test
+    @DisplayName("Querydsl 조회테스트2")
+    public void queryDslTest2(){
+
+        this.createItemList2();
+
+        BooleanBuilder booleanBuilder = new BooleanBuilder();	// (1)
+        QItem item = QItem.item;	// (2)
+        String itemDetail = "테스트 상품 상세 설명";
+        int price = 10003;
+        String itemSellStat = "SELL";
+
+        booleanBuilder.and(item.itemDetail.like("%" + itemDetail + "%"));	// (3)
+        booleanBuilder.and(item.price.gt(price));
+
+        if(StringUtils.equals(itemSellStat, ItemSellStatus.SELL)){
+            booleanBuilder.and(item.itemSellStatus.eq(ItemSellStatus.SELL));
+        }
+
+        Pageable pageable = PageRequest.of(0, 5);	// (4)
+        Page<Item> itemPagingResult = itemRepository.findAll(booleanBuilder, pageable);	// (5)
+        System.out.println("total elements : " + itemPagingResult.getTotalElements());
+
+        List<Item> resultItemList = itemPagingResult.getContent();	// (6)
+        for(Item resultItem : resultItemList){
+            System.out.println(resultItem.toString());
+        }
+}
+```
+
+(1) **BooleanBuilder**는 쿼리에 들어갈 조건을 만들어주는 빌더
+
+(2) **QClass 객체**를 이용하여 Querydsl를 통해 쿼리를 생성
+
+(3) 조건을 동적으로 추가한다.
+
+(4) 데이터를 페이징하여 조회할 수 있도록 **Pageable** 객체를 생성한다.
+
+(5) 조건에 맞는 데이터를 **Page** 객체로 받아온다.
+
+(6) 조회된 데이터를 받아온다.
 
 
 
+**개념**
 
+- Predicate : 이 조건이 맞다고 판단하는 근거를 함수로 제공하는 것
 
+  - BooleanBuilder는 Predicate의 구현체이며, 메소드 체인 형식으로 사용할 수 있다.
+
+- Repository에 Predicate를 파라미터로 전달하기 위해 QuerydslRedicateExecutor 인터페이스를 상속받는다.
+
+- QuerydslRedicateExecutor 인터페이스 메소드
+
+  | 메소드                                   | 설명                  |
+  | ------------------------------------- | ------------------- |
+  | long count(Predicate)                 | 조건에 맞는 데이터의 총 개수 반환 |
+  | boolean exists(Predicate)             | 조건에 맞는 데이터 존재 여부 반환 |
+  | Iterable findAll(Predicate)           | 조건에 맞는 모든 데이터 반환    |
+  | Page\<T> findAll(Predicate, Pageable) | 조건에 맞는 페이지 데이터 반환   |
+  | Iterable findAll(Predicate, Sort)     | 조건에 맞는 정렬된 데이터 반환   |
+  | T findOne(Predicate)                  | 조건에 맞는 데이터 1개 반환    |
+
+- 장점 : Querydsl을 사용하기 위해 EntityManager을 주입하여 JpaQueryFactory를 생성하고 기본 쿼리도 직접 작성해야하는 수고를 덜 수 있다.
 
 
 
@@ -191,8 +265,9 @@ class ItemRepositoryTest {
 
 - 개념
 
-  - https://wildeveloperetrain.tistory.com/92
+  - [https://wildeveloperetrain.tistory.com](https://wildeveloperetrain.tistory.com/92)
 - 사용법
 
   - [https://gaemi606.tistory.com](https://gaemi606.tistory.com/entry/Spring-Boot-Querydsl-%EC%B6%94%EA%B0%80-Gradle-7x)
+  - [https://jaime-note.tistory.com](https://jaime-note.tistory.com/80)
   - 백견불여일타 스프링부트 쇼핑몰프로젝트
