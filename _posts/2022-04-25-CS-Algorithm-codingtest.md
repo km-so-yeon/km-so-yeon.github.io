@@ -16,7 +16,7 @@ tags: [Python]
 - 대체로 정렬 알고리즘 사용 시 기준을 만족함
 - 문제 풀이를 위한 최소한의 아이디어를 떠올리고 정당한지 검토
 
- 
+
 
 ## 구현
 
@@ -29,15 +29,15 @@ tags: [Python]
   - 메모리 제한 400MB : 리스트 길이 1000만 이하
   - 시간 제한 1초 : 데이터 개수 100개라면 복잡도 O(NlogN) 이하
 - 방향 설정 문제
-	
-	- 리스트 만들어서 방향 정하기
-	
-	  ```python
-	  step = [(-1, 0), ( ...)]
-	  
-	  dx = [-1, 0, 1, 0]
-	  dy = [0, 1, -1, 0]
-	  ```
+
+  - 리스트 만들어서 방향 정하기
+
+    ```python
+    step = [(-1, 0), ( ...)]
+
+    dx = [-1, 0, 1, 0]
+    dy = [0, 1, -1, 0]
+    ```
 
 
 
@@ -83,7 +83,7 @@ def dfs(graph, v, visited) :
 	# 현재 노드와 연결된 다른 노드를 재귀적으로 방문
 	for i in graph[v] :
 		if not visited[i] :
-		dfs(graph, i, visitied)
+			dfs(graph, i, visitied)
 
 # 각 노드가 연결된 정보를 리스트 자료형으로 표현(2차원 리스트)
 graph = [
@@ -120,7 +120,7 @@ dfs(graph, 1, visited)
 from collections import deque
 
 #BFS 메서드 정의
-def bfs(graph, start visited) :
+def bfs(graph, start, visited) :
 	# 큐(queue) 구현을 위해 deque 라이브러리 사용
 	queue = deque([start])
 
@@ -161,11 +161,11 @@ bfs(graph, 1, visited)
 - 방문 정보(1차원리스트), 노드 정보(2차원리스트), 큐 필요
 - 방금 방문한 노드의 리스트를 큐에 삽입
 
- 
 
-|           | DFS            | BFS              |
-| --------- | -------------- | ---------------- |
-| 동작 원리 | 스택           | 큐               |
+
+|       | DFS      | BFS       |
+| ----- | -------- | --------- |
+| 동작 원리 | 스택       | 큐         |
 | 구현 방법 | 재귀 함수 이용 | 큐 자료구조 이용 |
 
 - 2차원 배열에서의 탐색 문제 > 그래프 형태로 바꿔서 표현
@@ -270,7 +270,7 @@ print(array)
 
   ```python
   array = [7, 5, 9, 0, 3, 1, 6, 2, 4, 8]
-  
+
   def quick_sort(array) :
   	# 리스트가 하나 이하의 원소만을 담고 있다면 종료
   	if len(array) <= 1 :
@@ -433,7 +433,7 @@ print(sequential_search(n, target, array))
   n, target = list(map(int, input().split()))
   # 전체 원소 입력받기
   array = list(map(int, input().split()))
-  
+
   # 이진 탐색 수행 결과
   result = binary_search(array, target, 0, n - 1)
   if result == None :
@@ -473,7 +473,7 @@ print(sequential_search(n, target, array))
 
   ```python
   import sys
-  
+
   # 하나의 문자열 데이터 입력받기
   input_data = sys.stdin.readline().rstrip()
   ```
@@ -496,7 +496,7 @@ print(sequential_search(n, target, array))
   ```python
   # 한 번 계산된 결과를 메모이제이션 하기 위한 리스트 초기화
   d = [0] * 100
-  
+
   # 피보나치 함수를 재귀함수로 구현(탑다운 다이나믹 프로그래밍)
   def fibo(x) :
       print('f(' + str(x) + ')', end=' ')
@@ -510,9 +510,9 @@ print(sequential_search(n, target, array))
   	# 아직 계산하지 않은 문제라면 점화식에 따라서 피보나치 결과 반환
   	d[x] = fibo(x - 1) + fibo(x - 2)
   	return d[x]
-  
+
   print(fibo(6))
-  
+
   # 호출되는 함수 f(6) f(5) f(4) f(3) f(2) f(1) f(2) f(3) f(4)
   ```
 

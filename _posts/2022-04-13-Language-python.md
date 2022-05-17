@@ -112,7 +112,7 @@ a * 2				// "hello worldhello world"
   number = 10
   "I ate %d apples. so I was sick for %s days." % (number, "three")	
   // "I ate 10 apples. so I was sick for three days."
-  
+
   "%10s" % "hi"					// '        hi'
   "%-10sjane" % "hi"				// 'hi        jane'
   "%0.4f" % 3.42134234			// '3.4213'
@@ -133,7 +133,7 @@ a * 2				// "hello worldhello world"
   "I ate {0} apples. so I was sick for {1} days.".format(number, "three")
   "I ate {number} apples. so I was sick for {day} days.".format(number=10, day=3)
   "I ate {0} apples. so I was sick for {day} days.".format(10, day=3)
-  
+
   "{0:>10}".format("hi")			// '        hi'
   "{0:=>10}".format("hi")			// '========hi'
   "{0:0.4f}".format(3.42134234)	// '3.4213'
@@ -156,10 +156,10 @@ a * 2				// "hello worldhello world"
   age = 25
   f'내 이름은 {name}입니다. 나이는 {age}입니다.'	 // '내 이름은 김소연입니다. 나이는 25입니다.'
   f'내년에는 {age+1}이 됩니다.'					// '내년에는 26이 됩니다.'
-  
+
   d = {'name' : '김소연', 'age' : 25}
   f'내 이름은 {d['name']}입니다. 나이는 {d['age']}입니다.'	 // '내 이름은 김소연입니다. 나이는 25입니다.'
-  
+
   f'{"hi":>10}'					// '        hi'
   f'{"hi":=>10}'					// '========hi'
   f'{3.4213:0.4f}'				// '3.4213'
@@ -270,6 +270,40 @@ a.insert(0, 0)	// [0, 1, 2, 3, 4, 'a', 'b']
   - a.index(값) : 값이 있는 위치를 리턴
 - 개수 세기
   - a.count(값) : 값이 몇 개 있는지 리턴
+
+
+#### 2차원 리스트 입력받기
+
+리스트의 가로 길이를 알고 있을 때 사용 가능 (가로길이 N)
+
+1. 원소 하나씩 입력받기
+
+```python
+arr = [for _ in range(N)]
+
+for i in range(N) :
+	arr[i] = list(map(int, input().split()))
+```
+
+- 길이가 N인 리스트를 선언해놓고, 각 원소에 리스트 넣기
+
+2. 원소에 List 추가하기
+
+```python
+arr = []
+
+for i in range(N) :
+	arr.append(list(map(int, input().split)))
+```
+
+- 기본 리스트를 선언해놓고, 리스트를 끝에 추가하기
+
+3. 선언과 동시에 입력받기
+
+```python
+arr = [list(map(int, input().split())) for _ in range(N)]
+```
+
 
 
 
@@ -506,7 +540,7 @@ for 변수 in 반복가능객체 :
 
   ```python
   [표현식 for 변수 in 반복가능객체 if 조건문]
-  
+
   a = [1, 2, 3, 4]
   result = [num * 3 for num in a]				// [3, 6, 9, 12]
   result = [x * y for x in range(2, 10)
@@ -585,7 +619,7 @@ def 함수명(매개변수) :
   		print("여자입니다.")
   	else :
   		print("남자입니다.")
-  
+
   say_myself("김소연", 25)
   ```
 
@@ -602,7 +636,7 @@ def 함수명(매개변수) :
   def vartest(x) :
   	x = x + 1
   	return x
-  
+
   a = vartest(a)
   ```
 
