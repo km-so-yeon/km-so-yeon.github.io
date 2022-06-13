@@ -1,5 +1,5 @@
 ---
-title: "[Spring] 의존성 주입(DI) 개념, 사용법"
+title: "[Spring] 의존성 주입(DI) 개념"
 author: "김소연"
 date: 2022-06-08 21:00:00 -0500
 categories: [Web Application]
@@ -133,3 +133,4 @@ Spring IoC 컨테이너에 Bean을 등록하고, 생성된 Bean 객체를 주입
 
 - [뉴렉처](https://www.youtube.com/watch?v=WjsDN_aFfyw)
 - [망나니개발자](https://mangkyu.tistory.com/150)
+- [Knowledge Repository](https://atoz-develop.tistory.com/entry/Spring-%EC%8A%A4%ED%94%84%EB%A7%81-%EB%B9%88Bean%EC%9D%98-%EA%B0%9C%EB%85%90%EA%B3%BC-%EC%83%9D%EC%84%B1-%EC%9B%90%EB%A6%AC)
