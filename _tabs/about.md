@@ -6,28 +6,16 @@ order: 4
 
 
 
-## 김소연
+## 김소연 (Kim so yeon)
 
 Back-End Developer
 
 
 
+#### [Portfolio](https://www.notion.so/Kim-so-yeon-4346335eab1749a59dbb36497c3dd9ce)
+
+
+
 #### Contact.
 
-- e-mail : yeonsokm@naver.com
-
-
-
-#### Work.
-
-- 2021.1 - 현재 : SI회사 재직 중
-  - 웹 개발 프로젝트
-
-
-
-#### Skill.
-
-- Front-End : Javascript, HTML/CSS
-- Back-End : Java, Spring
-- Database : Mybatis
-- Data : SQL
+yeonsokm@naver.com
