@@ -98,7 +98,12 @@
   - 객체에 대한 제어 권한은 Container에 있다. 이것을 IoC(Inversion of Controller, 제어의 역전)라고 한다.
     👉 인스턴스를 저장하는 Container을 IoC Container (혹은 DI Container)라고 부른다.
 
-    ​
+
+  ​
+
+  ### 의존성 주입 사용법
+
+  Spring IoC 컨테이너에 Bean을 등록하고, 생성된 Bean 객체를 주입한다.
 
   #### 빈(Bean)
 
@@ -106,10 +111,6 @@
   - ApplicationContext가 알고있는 객체 (ApplicationContext.getBean()으로 얻어질 수 있는 객체)
 
   ​
-
-  ### 의존성 주입 사용법
-
-  Spring IoC 컨테이너에 Bean을 등록하고, 생성된 Bean 객체를 주입한다.
 
   [Bean 생성원리와 의존성 주입 사용법](https://km-so-yeon.github.io/posts/Web-spring-di-way/)
 
