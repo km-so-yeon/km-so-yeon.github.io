@@ -92,14 +92,36 @@ A a = new A(b);
    A 객체 내부에서만 사용되었던 B 객체를 별도로 구분하여 구분하면 다른 클래스에서 재사용할 수 있다.
 
 3.  테스트하기 좋은 코드가 된다.
-   A 객체 테스트와 B 객체 테스트를 분리하여 진행할 수 있다.
+       A 객체 테스트와 B 객체 테스트를 분리하여 진행할 수 있다.
 
 4. 가독성이 높아진다.
    A 객체와 B 객체의 기능들을 별도로 분리하게 되어 가독성이 높아진다.
 
 
 
-## 의존성 주입 사용법
+
+## Spring에서의 의존성 주입
+
+- 외부에서 인스턴스를 만들어서 각 클래스에 주입한다.
+
+- 인스턴스를 저장하는 공간을 Container라고 부른다.
+
+- 객체에 대한 제어 권한은 Container에 있다. 이것을 IoC(Inversion of Controller, 제어의 역전)라고 한다.
+  👉 인스턴스를 저장하는 Container을 IoC Container (혹은 DI Container)라고 부른다.
+
+  ​
+
+#### 빈(Bean)
+
+- Spring IoC Container가 관리하는 자바 객체
+- ApplicationContext가 알고있는 객체 (ApplicationContext.getBean()으로 얻어질 수 있는 객체)
+
+
+
+
+### 의존성 주입 사용법
+
+Spring IoC 컨테이너에 Bean을 등록하고, 생성된 Bean 객체를 주입한다.
 
 
 
@@ -111,5 +133,3 @@ A a = new A(b);
 
 - [뉴렉처](https://www.youtube.com/watch?v=WjsDN_aFfyw)
 - [망나니개발자](https://mangkyu.tistory.com/150)
-- [절차대로 생각하고 객체로 코딩하기](https://codevang.tistory.com/256)
-- [https://tecoble.techcourse.co.kr/post/2021-04-27-dependency-injection/](https://tecoble.techcourse.co.kr/post/2021-04-27-dependency-injection/)
