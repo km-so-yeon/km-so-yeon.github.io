@@ -18,7 +18,7 @@ timezone: Asia/Seoul
 # jekyll-seo-tag settings › https://github.com/jekyll/jekyll-seo-tag/blob/master/docs/usage.md
 # ↓ --------------------------
 
-title: 쏘                          # the main title
+title: 포스트잇                          # the main title
 
 tagline: 오늘보다 나은   # it will display as the sub-title
 
@@ -82,7 +82,7 @@ theme_mode:   # [light|dark]
 img_cdn: ''
 
 # the avatar on sidebar, support local or CORS resources
-avatar: assets/img/마죠리카.jpg
+avatar: assets/img/포스트잇.jpg
 
 # boolean type, the global switch for ToC in posts.
 toc: true
