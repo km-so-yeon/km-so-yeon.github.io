@@ -31,7 +31,9 @@ tags: [Swagger]
 
 #### Spring boot에 Swagger 적용
 
-1. 의존성 추가 (maven)
+1. 의존성 추가
+
+- Maven
 
 ```xml
 <dependency>
@@ -45,6 +47,21 @@ tags: [Swagger]
    <version>2.9.2</version>
 </dependency>
 ```
+
+- Gradle
+
+```
+dependencies {
+	// ... 생략
+	
+	// swagger2
+	implementation 'io.springfox:springfox-swagger2:2.9.2'
+	implementation 'io.springfox:springfox-swagger-ui:2.9.2'
+	
+}
+```
+
+
 
 
 
@@ -69,44 +86,36 @@ import springfox.documentation.swagger2.annotation.EnableSwagger2;
 @EnableSwagger2
 public class SwaggerConfig {
 
-  	private ApiInfo apiInfo() {
+  	@Configuration
+@EnableSwagger2
+public class SwaggerConfig {
+
+    private ApiInfo apiInfo() {
     	return new ApiInfoBuilder()
-          		.title("swagger 제목")
-          		.description("swagger 설명")
-          		.version("1.0")
-          		.build();
-  	}
-  
-  	private Set<String> getConsumeContentTypes() {
-    	Set<String> consumes = new HashSet<>();
-      	consumes.add("application/json;carset=UTF-8");
-      	consumes.add("application/x-www-form-urlencoded");
-      	return consumes;
-  	}
-  
-  	private Set<String> getProduceContentTypes() {
-    	Set<String> produces = new HashSet<>();
-      	produces.add("application/json;charset=UTF-8");
-      	return produces;
-  	}
-  
-  	@Bean
-	public Docket api() {
-        return new Docket(DocumentationType.SWAGGER_2)
-                .select()
-                .apis(RequestHandlerSelectors.any())
-                .paths(PathSelectors.any())
-                .build();
+    			.title("Swagger 제목")
+    			.description("Swagger 설명")
+    			.version("1.0")
+    			.build();
     }
+    
+    @Bean
+    public Docket api() {
+    	return new Docket(DocumentationType.SWAGGER_2)
+    			.apiInfo(apiInfo())
+    			.select()
+    			.apis(RequestHandlerSelectors.any())
+    			.paths(PathSelectors.any())
+    			.build();
+    }
+}
 }
 ```
 
 - **.paths(PathSelectors.any())** : 해당 패키지 하위에 있는 모든 url에 적용
   -  `paths(PathSelectors.ant("/api/**")) ` 로 설정할 경우 RequestMapping에서 설정한 url `/api` 하위의 모든 API를 보도록 설정하는 것
 
-- **getConsumeContentTypes(), getProduceContentTypes()** : 생략 가능
-
   ​
+
 
 
 
@@ -216,7 +225,7 @@ Spring Security를 사용한다면 기본적으로 Security에 예외 처리되�
 ## 사용법
 
 1. `localhost:8080/swagger-ui.html` 으로 접속
-2. `Try it out` 버튼 클릭 후 파라미터가 필요할 경우 작성 후 Execute
+2. `Try it out` 버튼 클릭 후 파라미터가 필요할 경우 작성 후 `Execute` 버튼 클릭
 
 
 
