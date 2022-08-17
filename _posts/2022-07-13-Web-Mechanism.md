@@ -3,7 +3,7 @@ title: "[Web] 웹 동작방식"
 author: "김소연"
 date: 2022-07-13 21:00:00 -0500
 categories: [Web Application]
-tags: []
+tags: [Web]
 ---
 
 
