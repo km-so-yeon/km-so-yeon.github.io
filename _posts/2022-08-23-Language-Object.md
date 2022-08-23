@@ -110,6 +110,10 @@ class TvTest {
 }
 ```
 
+![object](/assets/img/object.png){:width="80%" height="80%"}
+
+
+
 
 
 ## 객체 배열
