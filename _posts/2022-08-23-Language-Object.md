@@ -110,7 +110,7 @@ class TvTest {
 }
 ```
 
-![object](/assets/img/object.png){:width="80%" height="80%"}
+![object](/assets/img/object.gif){:width="80%" height="80%"}
 
 
 
