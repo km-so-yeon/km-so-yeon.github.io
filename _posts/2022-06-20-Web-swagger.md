@@ -35,7 +35,7 @@ tags: [Swagger]
 
 - Maven
 
-```xml
+```
 <dependency>
 	<groupId>io.springfox</groupId>
 	<artifactId>springfox-swagger2</artifactId>
