@@ -2,7 +2,7 @@
 title: "[Java] 변수와 메서드"
 author: "김소연"
 date: 2022-08-24 21:00:00 -0500
-categories: [Language, Java]
+categories: [Web Application]
 tags: [Java]
 ---
 
