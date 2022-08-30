@@ -33,6 +33,19 @@ tags: [Swagger]
 
 1. 의존성 추가
 
+- Gradle
+
+```
+dependencies {
+	// ... 생략
+	
+	// swagger2
+	implementation 'io.springfox:springfox-swagger2:2.9.2'
+	implementation 'io.springfox:springfox-swagger-ui:2.9.2'
+	
+}
+```
+
 - Maven
 
 ```
@@ -47,21 +60,6 @@ tags: [Swagger]
    <version>2.9.2</version>
 </dependency>
 ```
-
-- Gradle
-
-```
-dependencies {
-	// ... 생략
-	
-	// swagger2
-	implementation 'io.springfox:springfox-swagger2:2.9.2'
-	implementation 'io.springfox:springfox-swagger-ui:2.9.2'
-	
-}
-```
-
-
 
 
 
