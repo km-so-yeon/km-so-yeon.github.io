@@ -1,5 +1,5 @@
 ---
-title: "[Java] 제어자
+title: "[Java] 제어자"
 author: "김소연"
 date: 2022-09-01 21:00:00 -0500
 categories: [Language, Java]
