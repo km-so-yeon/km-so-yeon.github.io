@@ -541,6 +541,8 @@ for 변수 in 반복가능객체 :
   ```python
   [표현식 for 변수 in 반복가능객체 if 조건문]
 
+
+
   a = [1, 2, 3, 4]
   result = [num * 3 for num in a]				// [3, 6, 9, 12]
   result = [x * y for x in range(2, 10)
@@ -550,6 +552,14 @@ for 변수 in 반복가능객체 :
   - 리스트 안에 for문을 포함
   - if문 생략 가능
   - for문 2개 이상 사용 가능
+
+  ```python
+  arr = [[] for _ in range(n)]
+  ```
+
+
+  - 2차원 리스트 선언
+
 
 
 
