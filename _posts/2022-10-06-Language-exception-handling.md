@@ -63,4 +63,3 @@ tags: [Java]
 ### 출처📎
 
 - 자바의 정석
-- [이미지 출처 - 깃허브](https://github.com/mingseok/javajungsuk3)
