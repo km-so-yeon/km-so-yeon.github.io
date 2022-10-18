@@ -202,6 +202,114 @@ try {
 
 
 
+## 예외 발생시키기
+
+#### 방법
+
+1. 먼저, 연산자 new를 이용해서 발생시키려는 예외 클래스의 객체를 만든 다음
+2. 키워드 `throw`를 이용해서 예외를 발생시킨다.
+
+```java
+class ExceptionEx {
+  public static void main(String args[]) {
+    try {
+      Exception e = new Exception("고의로 발생시킴");
+      throw e;		// 예외를 발생시킴
+      //throw new Exception("고의로 발생시킴");	// 위의 두줄을 한줄로 줄일 수 있다.
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+      System.out.println("정상 종료");
+  }
+}
+```
+
+실행 결과
+
+```
+java.lang.Exception: 고의로 발생시킴
+	at ExceptionEx.main(ExceptionEx.java:4)
+정상 종료
+```
+
+#### checked 예외, unchecked 예외
+
+checked 예외
+
+- Exception 클래스들이 발생할 가능성이 있는 문장에 예외처리를 하지 않으면 컴파일 되지 않는다.
+- 예외처리를 확인하는 Exception 클래스들은 checked예외라고 한다.
+
+unchecked 예외
+
+- RuntimeException 클래스들이 발생할 가능성이 있는 문장에 예외처리를 하지 않으면 컴파일은 성공하지만, 비정상적으로 종료된다.
+- 예외처리를 확인하지 않는 RuntimeException 클래스들은 unchecked예외라고 한다.
+
+
+
+## 메서드에 예외 선언하기
+
+#### 방법
+
+1. 메서드 선언부에 키워드 `throws`를 사용해서 메서드 내에서 발생할 수 있는 예외를 적어준다.
+2. 예외가 여러 개일 경우 쉼표`,`로 구분한다.
+
+```java
+void method() throws Exception1, Exception2, ... ExceptionN {
+  // 메서드 내용
+}
+```
+
+- 적어준 예외 뿐만 아니라 그 자손타입의 예외까지도 발생할 수 있다.
+
+- 메서드 선언부에 발생 가능성 있는 예외를 명시하여 이 메서드를 사용하는 쪽에서 이에 대한 처리를 강요하도록 한다.
+
+  - 사용하는 쪽에서 예외처리를 하지 않고 종료된다면 예외로 인해 비정상적으로 종료된다.
+  - 이를 통해 프로그래머들의 짐을 덜어주고, 견고한 프로그램 코드를 작성할 수 있도록 도와준다.
+
+- 예외가 발생한 메서드 내에서 자체적으로 처리해도 되는 것은 메서드 내에서 try-catch문을 사용해서 처리하고, 메서드 내에서 자체적으로 해결이 안되는 경우에는 예외를 메서드에 선언해서 호출한 메서드에서 처리해야한다.
+
+  - 자체적으로 처리
+
+    ```java
+    class ExceptionEx {
+      public static void main(String[] args) {
+        method1();
+      }
+      
+      static void method1() {
+        try {
+          throw new Exception();
+        } catch (Exception e) {
+          System.out.prinln("method1에서 예외처리");
+          e.printStackTrace();
+        }
+      }
+    }
+    ```
+
+  - 호출한 메서드에서 처리
+
+    ```java
+    class ExceptionEx {
+      public static void main(String[] args) {
+        try {
+          method1();
+        } catch (Exception e) {
+          System.out.prinln("main에서 예외처리");
+          e.printStackTrace();
+        }
+      }
+      
+      static void method1() throws Exception{
+        throw new Exception();
+      }
+    }
+    ```
+
+    ​
+
+
+
 ### 출처📎
 
 - 자바의 정석
