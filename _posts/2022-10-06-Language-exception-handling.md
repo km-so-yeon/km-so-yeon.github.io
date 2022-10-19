@@ -309,6 +309,163 @@ void method() throws Exception1, Exception2, ... ExceptionN {
     ​
 
 
+## finally 블럭
+
+- 목적 : 예외의 발생여부에 상관없이 실행되어야할 코드를 포함시키기 위해 사용한다.
+- 사용법 : try-catch문 끝에 선택적으로 덧붙인다.
+- 실행 순서 : try → catch → finally (예외가 발생하지 않은 경우 catch 생략)
+
+```java
+try {
+  // 예외가 발생할 가능성이 있는 문장들을 넣는다.
+} catch (Exception1 e) {
+  // 예외처리를 위한 문장을 적는다.
+} finally {
+  // 예외의 발생여부에 관계없이 항상 수행되어야하는 문장들을 넣는다.
+}
+```
+
+- try, catch블럭 내에 return문이 있더라도 finally블럭 내 문장들을 실행하고 종료한다.
+
+
+
+## 자동 자원 반환 (try-with-resources문)
+
+- JDK1.7부터 사용 가능
+
+- 주로 입출력 관련 클래스에서 사용
+
+  - 입출력에 사용되는 클래스는 사용 후 자원(resources)를 반환하기 위해 닫아줘야한다.
+
+    ```java
+    try {
+      fis = new FileInputStream("score.dat");
+      dis = new DataInputStream(fis);
+    } catch (IOException ie) {
+      ie.printStackTrace()
+    } finally {
+      try {		// close()에서 발생할 수 있는 예외를 처리하기 위해
+        if(dis != null) 
+        	dis.close();
+      } catch (IOException ie) {
+        ie.printStackTrace()
+      }
+    }
+    ```
+
+    1. 코드가 복잡해졌다.
+    2. try블럭과 finally블럭에서 모두 예외가 발생하면, try블럭의 예외는 무시된다.
+
+    이를 개선하기 위해 try-with-resources문이 되었다.
+
+
+
+#### 사용방법
+
+```java
+try (FileInputStream fis = new FileInputStream("score.dat");
+	DataInputStream dis = new DataInputStream()) {
+  // 코드 작성..
+} catch (IOException ie) {
+  ie.printStackTrace();
+}
+```
+
+- 괄호`()` 안에 객체를 생성하는 문장을 넣으면, try블럭을 벗어나는 순간 자동적으로 close()가 호출된다.
+  - 생성된 객체는 try블럭 내에서만 사용 가능하다.
+  - 자동으로 close()가 호출될 수 있으려면 클래스가 `AutoCloseable`이라는 인터페이스를 구현한 것이어야 한다.
+- 괄호`()`안에 두 문장 이상 넣을 경우 `;`으로 구분한다.
+
+
+
+#### 억제된 예외 (suppressed)
+
+try-with-resources문을 사용했기 때문에 
+try-catch만 사용했으면  try블럭에서 무시되었을 예외를 출력할 수 있다.
+
+이 때 출력된 예외를 `억제된 예외`라고 한다.
+
+억제된 예외에 대한 정보는 실제 발생한 예외에 저장된다.
+
+```java
+class TryWithResourcesEx {
+  public static void main(String[] args) {
+    try (CloseableResource cr = new CloseableResource) {
+      cr.exceptionWork(false);	// 예외가 발생하지 않는다.
+    } catch (WorkException e) {
+      e.printStackTrace();
+    } catch (CloseEXception e) {
+      e.printStackTrace();
+    }
+    
+    try (CloseableResource cr = new CloseableResource) {
+      cr.exceptionWork(true);	// 예외가 발생한다.
+    } catch (WorkException e) {
+      e.printStackTrace();
+    } catch (CloseEXception e) {
+      e.printStackTrace();
+    }
+  }
+}
+
+class CloseableResource implements AutoCloseable {
+  public void exceptionWork(boolean exception) throws WorkException {
+    System.out.println("exceptionWork(" + exception + ")가 호출됨");
+    
+    if(exception)
+    	throw new WorkException("WorkException 발생");
+  }
+  
+  public void close() throws CloseException {
+    System.out.println("close() 호출됨");
+    throw new CloseException("CloseException 발생");
+  }
+}
+
+class WorkException extends Exception {
+  WorkException(String msg) { super(msg); }
+}
+
+class CloseException extends Exception {
+  CloseException(String msg) { super(msg); }
+}
+```
+
+실행결과
+
+```
+exceptionWork(false)가 호출됨
+close() 호출됨
+CloseException: CloseException 발생
+	at CloseableResource.close(TryWithResourcesEx.java:33)
+	at TryWithResourcesEx.main(TryWithResourcesEx.java:6)
+	
+exceptionWork(true)가 호출됨
+close() 호출됨
+WorkException: WorkException 발생
+	at CloseableResource.exceptionWork(TryWithResourcesEx.java:28)
+	at TryWithResourcesEx.main(TryWithResourcesEx.java:14)
+	CloseException: CloseException 발생
+		at CloseableResource.close(TryWithResourcesEx.java:33)
+		at TryWithResourcesEx.main(TryWithResourcesEx.java:15)
+```
+
+- 두 예외가 동시에 발생할 수는 없기 때문에 
+  실제 발생된 예외는 WorkException, 억제된 예외는 CloseException으로 다룬다.
+
+
+
+#### Throwable에 정의된 억제된 예외와 관련된 메서드
+
+```
+void addSuppressed(Throwable exception)		// 억제된 예외를 추가
+Throwable[] getSuppressed()					// 억제된 예외(배열)을 반환
+```
+
+
+
+
+
 
 ### 출처📎
 
