@@ -380,8 +380,8 @@ try (FileInputStream fis = new FileInputStream("score.dat");
 
 #### 억제된 예외 (suppressed)
 
-try-with-resources문을 사용했기 때문에 
-try-catch만 사용했으면  try블럭에서 무시되었을 예외를 출력할 수 있다.
+try-with-resources문을 사용하면
+try-catch만 사용했을 때 try블럭과 catch블럭에서 모두 예외가 발생할 경우 **try블럭에서 발생해서 무시되었을 예외**를 출력할 수 있다.
 
 이 때 출력된 예외를 `억제된 예외`라고 한다.
 
@@ -458,14 +458,184 @@ WorkException: WorkException 발생
 #### Throwable에 정의된 억제된 예외와 관련된 메서드
 
 ```
-void addSuppressed(Throwable exception)		// 억제된 예외를 추가
-Throwable[] getSuppressed()					// 억제된 예외(배열)을 반환
+void addSuppressed(Throwable exception)		억제된 예외를 추가
+Throwable[] getSuppressed()					억제된 예외(배열)을 반환
 ```
 
 
 
+## 사용자정의 예외
+
+- 필요에 따라 프로그래머가 새로운 예외 클래스를 정의하여 사용할 수 있다.
+- 가능하면 새로운 예외클래스를 만들기보다 기존의 예외클래스를 사용하자.
 
 
+
+#### 방법
+
+`Exception`클래스 또는 `RuntimeException`으로부터 상속받아 클래스를 만든다.
+
+```java
+class MyException extends Exception {
+  // 에러코드 값을 저장하기 위한 필드를 추가했다.
+  pricate final int ERR_CODE;	// 생성자를 통해 초기화한다.
+  
+  MyException(String msg, int errCode) {	// 생성자
+    super(msg);		// 조상인 Exception클래스의 생성자를 호출한다.
+    ERR_CODE = errCode;
+  }
+  
+  MyException(String msg){	// 생성자
+    this(msg, 100);	// ERR_CODE를 100(기본값)으로 초기화한다.
+  }
+  
+  public int getErrCode(){	// 에러 코드를 얻을 수 있는 메서드도 추가한다.
+    return ERR_CODE;		// 이 메서드는 주로 getMessage()와 함께 사용될 것이다.
+  }
+}
+```
+
+
+
+## 예외 되던지기 (exception re-throwing)
+
+예외를 처리한 후 인위적으로 다시 발생시키는 것
+
+하나의 예외에 대해서 예외가 발생한 메서드와 이를 호출한 메서드 양쪽 모두에서 처리해줘야 할 작업이 있을 때 사용된다.
+
+#### 방법
+
+1. 예외가 발생할 가능성이 있는 메서드에서 try-catch문을 사용해서 예외 처리하기
+2. catch문에서 필요한 작업을 수행한 후 throw문을 사용해서 예외를 다시 발생시키기
+   (+메서드의 선언부에 발생할 예외를 throws에 지정해주어야 한다.)
+3. 다시 발생한 예외는 이 메서드를 호출한 메서드에게 전달되어 호출한 메서드의 try-catch문에서 예외를 또다시 처리
+
+```java
+class RethrowingEx {
+  public static void main(String[] args) {
+    try {
+      method1();
+    } catch (Exception e) {
+      System.out.println("main메서드에서 예외가 처리되었습니다.");
+    }
+  }
+  
+  public void method1() throws Exception {
+    try {
+      throw new Exception();
+    } catch (Exception e) {
+      System.out.println("method1메서드에서 예외가 처리되었습니다.");
+      throw e;	// 다시 예외를 발생시킨다.
+    }
+  }
+}
+```
+
+실행결과
+
+```
+method1메서드에서 예외가 처리되었습니다.
+main메서드에서 예외가 처리되었습니다.
+```
+
+- 반환값이 있는 메서드일 경우
+
+  ```java
+  static int method() {
+    try {
+      return 0;
+    } catch (Exception e) {
+      // return 1;
+      throw new Exception();
+    } finally {
+      System.out.println("method1메서드의 finally블럭이 수행되었습니다.");
+    }
+  }
+  ```
+
+  - catch블럭에서도 return문이 있어야 한다.
+    - 또는 예외 되던지기를 해서 호출한 메서드로 예외를 전달하면 return문이 없어도 된다.
+  - finally블럭에서도 return문을 사용할 수 있으며, try블럭이나 catch블럭 return문 다음에 수행된다.
+    최종적으로 finally블럭 내의 return문 값이 반환된다.
+
+
+
+## 연결된 예외(chained exception)
+
+예외 A가 예외 B를 발생시켰다면, A를 B의 원인 예외(cause exception)이라고 한다.
+
+```
+Throwable initCause(Throwable cause)	지정한 예외를 원인 예외로 등록
+Throwable getCause()					원인 예외를 반환
+```
+
+
+
+SpaceException을 원인 예외로 하는 InstallException을 발생시키는 방법
+
+```java
+try {
+  startInstall();	// SpaceException 발생
+  copyFiles();
+} catch (SpaceException e) {
+  InstallException ie = new InstallException("설치 중 예외 발생");	// 예외 생성
+  ie.initCause(e);	// InstallException의 원인 예외를 SpaceException으로 지정
+  throw ie;			// InstallException을 발생시킨다.
+} catch (MemoryException me) {
+  // ...
+}
+```
+
+
+
+#### 발생한 예외를 원인 예외로 등록해서 다시 예외를 발생시키는 이유
+
+- **여러가지 예외를 하나의 큰 분류의 예외로 묶어서 다루기 위해서**
+
+  - InstallException을 SpaceException과 MemeryException의 조상으로 해서 catch블럭을 작성하면,
+
+    ```java
+    try {
+      startInstall();	// SpaceException 발생
+      copyFiles();
+    } catch (InstallException e) {
+      e.printStackTrace();
+    }
+    ```
+
+    - 실제 발생한 예외가 알 수 없다는 문제가 생긴다. 
+    - SpaceException과 MemoryException의 상속관계를 변경해야되는 것이 부담이 된다.
+
+    → 예외가 원인 예외를 포함할 수 있게 하면 두 예외는 상속관계가 아니어도 상관없다.
+
+- **checked예외를 unchecked예외로 바꿀 수 있도록 하기 위해서**
+
+  - checked예외를 unchecked예외로 바꾸면 예외처리가 선택적이 되므로 억지로 예외처리를 하지 않아도 된다.
+
+    ```java
+    static void startInstall() throws SpaceException {
+      if(!enoughSpace()) {
+        throw new SpaceException("설치할 공간이 부족합니다.");
+      }
+      
+      if(!enoughMemory()) {
+        throw new RuntimeException(new MemoryException("메모리가 부족합니다."));
+      }
+    }
+    ```
+
+    - MemoryException은 Exception의 자손이어서 반드시 예외처리를 해야되는데,
+      이 예외를 RuntimeException으로 감싸서 unchecked예외로 바꿨다.
+
+      - 그래서 throws에 MemoryException을 선언하지 않아도 된다.
+
+      - initCause() 대신 RuntimeException 생성자 사용
+
+        ```
+        RuntimeException(Throwable cause)		원인 예외를 등록하는 생성자
+        ```
+
+        ​
 
 ### 출처📎
 
