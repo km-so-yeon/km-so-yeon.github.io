@@ -6,13 +6,11 @@ order: 4
 
 
 
-## 김소연 (Kim so yeon)
+## 김소연 (Kim soyeon)
 
 Back-End Developer
 
-
-
-#### [Portfolio](https://www.notion.so/Kim-so-yeon-4346335eab1749a59dbb36497c3dd9ce)
+그냥이 아니라 이유를 설명할 수 있는 개발자가 되겠습니다.
 
 
 
