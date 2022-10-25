@@ -32,6 +32,7 @@ public final class String implements java.io.Serializable, Comparable {
 
 
 
+
 #### 문자열 저장 방법
 
 1. 문자열 리터럴을 지정하는 방법
@@ -51,10 +52,12 @@ String str4 = new String("abc");	// 새로운 String인스턴스를 생성
 
 
 
+
 **문자열 비교**
 
 - `equals()` : 문자열의 내용 비교
 - `==` : String인스턴스의 주소를 비교
+
 
 
 
@@ -70,6 +73,7 @@ String str4 = new String("abc");	// 새로운 String인스턴스를 생성
 
 
 
+
 **빈 문자열(empty string)**
 
 길이가 0인 char형 배열을 내부적으로 저장하고 있는 문자열
@@ -80,6 +84,158 @@ char c = ' ';		// 공백으로 초기화
 ```
 
 - C언어에서는 문자열 끝에 널문자가 붙지만, 자바에서는 널 문자를 사용하지 않고 문자열의 길이정보를 따로 저장한다.
+
+
+
+
+[String 메소드](https://www.w3schools.com/java/java_ref_string.asp)
+
+
+
+**기본형과 문자열 간 변환방법**
+
+- 기본형 → 문자열
+
+  1. 빈 문자열 더해주기
+  2. valueOf()
+
+  ```java
+  int i = 100;
+  String str1 = i + "";
+  String str2 = String.valueOf(i);
+  ```
+
+- 문자열 → 기본형
+
+  1. parseInt()	// parse + 래퍼클래스
+  2. valueOf()
+
+  ```java
+  int i = Integer.parseInt("100");
+  int i2 = Integer.valueOf("100");
+  ```
+
+  - parseInt를 통해 Integer로 반환되지만 오토박싱에 의해 Integer가 int로 자동변환된다.
+  - 래퍼 클래스 : 기본형 타입의 첫 글자가 대문자인 것
+
+
+
+## StringBuffer
+
+인스턴스를 생성할 때 지정된 문자열을 변경할 수 있다.
+
+- 내부적으로 문자열 편집을 위한 버퍼(buffer)를 가지고 있다.
+
+
+
+#### 인스턴스 생성
+
+생성자의 매개변수로 입력받는 문자열을 인스턴스 변수 `value`에 문자형 배열`char[]`로 저장한다. 
+(String과 유사)
+
+- 이 배열은 문자열을 저장하고 편집하기 위한 공간(buffer)로 사용된다.
+
+```java
+public final class StringBuffer implements java.io.Serializable {
+  private char[] value;
+  . . .
+}
+```
+
+- 생성 시 버퍼의 크기를 지정한다.
+  - 버퍼의 크기를 지정할 때 충분히 잡아주는 것이 좋다. (편집 중인 문자열이 버퍼의 길이를 넘어서면 늘려주는 작업이 추가로 수행되어서 작업 효율이 떨어진다.)
+  - 버커의 크기를 지정해주지 않으면 16개의 문자를 저장할 수 있는 크기의 버퍼를 생성한다.
+
+```java
+public StringBuffer(int length) {
+  value = new char[length];
+  shared = false;
+}
+
+public StringBuffer() {
+  this(16);
+}
+
+public StringBuffer(String str) {
+  this(str.length + 16);		// 지정한 문자열의 길이보다 16을 더 크게 버퍼를 생성한다.
+  append(str);
+}
+```
+
+
+
+#### 변경
+
+버퍼의 크기가 작업하려는 문자열의 길이보다 작을 때 내부적으로 버퍼의 크기를 증가시키는 작업이 수행된다.
+
+- 새로운 길이의 배열을 생성한 후 이전 배열의 값을 복사한다.
+- 인스턴스변수 value는 길이가 증가된 새로운 배열을 참조하게 된다.
+
+```java
+// 새로운 길이(newCapacity)의 배열을 생성한다(newCapacity는 정수값)
+char newValue[] = new char]newCapacity;
+
+// 배열 value의 내용을 배열 newValue로 복사한다.
+System.arraycopy(value, 0, newValue, 0, count);	// count는 문자열의 길이
+value = newValue;		// 새로 생성된 배열의 주소를 참조변수 value에 저장
+```
+
+
+
+**append()**
+
+기존 문자열에 새로운 문자열이 뒤에 추가되고, 자신의 주소를 반환한다.
+
+```java
+StringBuffer sb = new StringBuffer("abc");
+sb.append("123");
+StringBuffer sb2 = sb.append("ZZ");	// sb2는 sb와 같은 주소를 저장하게 된다.
+System.out.println(sb);		// abc123ZZ
+System.out.println(sb2);	// abc123ZZ
+```
+
+자신의 주소를 반환하기 때문에 **연속적으로 호출**할 수 있다.
+
+```java
+StringBuffer sb = new StringBuffer("abc");
+sb.append("123").append("ZZ");
+```
+
+
+
+#### 비교
+
+1. toString() 호출
+2. equals() 비교
+
+```java
+String s = sb.toString();
+String s2 = sb2.toString();
+System.out.println(s.equals(s2));		// true
+
+System.out.println(sb == sb2);			// false
+System.out.println(sb.equals(sb2));		// false
+```
+
+- StringBuffer클래스에서는 equals메서드를 오버라이딩하지 않아서 등가비교연산자`==`로 비교한 것과 같은 결과를 얻는다.
+  - toString()은 오버라이딩 되어있어서 toString()을 호출해서 문자열을 String으로 반환한 다음 equals메서드를 사용해서 비교해야 한다.
+
+
+
+[StringBuffer 메소드](https://docs.oracle.com/javase/7/docs/api/java/lang/StringBuffer.html)
+
+
+
+## String, StringBuilder, StringBuffer
+
+**차이점**
+
+String은 불변객체(immutable) 입니다.
+
+StringBuilder는 가변객체이고, 비동기방식이어서 싱글스레드 환경에서 변화되는 문자열일 때 사용합니다. 비동기 방식이어서 속도가 빠릅니다.
+
+StringBuffer는 가변객체이고, 동기방식이어서 멀티스레드 환경에서 변화되는 문자열일 때 사용합니다. (동기방식이므로 thread safe합니다.)
+
 
 
 
