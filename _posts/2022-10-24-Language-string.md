@@ -35,8 +35,8 @@ public final class String implements java.io.Serializable, Comparable {
 
 #### 문자열 저장 방법
 
-1. 문자열 리터럴을 지정하는 방법
-2. String클래스의 생성자를 사용해서 만드는 방법
+- 문자열 리터럴을 지정하는 방법
+- String클래스의 생성자를 사용해서 만드는 방법
 
 ```
 String str1 = "abc";				// 문자열 리터럴 "abc"의 주소가 str1에 저장됨
@@ -96,8 +96,8 @@ char c = ' ';		// 공백으로 초기화
 
 - 기본형 → 문자열
 
-  1. 빈 문자열 더해주기
-  2. valueOf()
+  - 빈 문자열 더해주기
+  - valueOf()
 
   ```java
   int i = 100;
@@ -107,8 +107,8 @@ char c = ' ';		// 공백으로 초기화
 
 - 문자열 → 기본형
 
-  1. parseInt()	// parse + 래퍼클래스
-  2. valueOf()
+  - parseInt()	// parse + 래퍼클래스
+  - valueOf()
 
   ```java
   int i = Integer.parseInt("100");
@@ -117,6 +117,7 @@ char c = ' ';		// 공백으로 초기화
 
   - parseInt를 통해 Integer로 반환되지만 오토박싱에 의해 Integer가 int로 자동변환된다.
   - 래퍼 클래스 : 기본형 타입의 첫 글자가 대문자인 것
+
 
 
 
@@ -226,6 +227,22 @@ System.out.println(sb.equals(sb2));		// false
 
 
 
+## StringBuilder
+
+StringBuffer에서 쓰레드의 동기화만 뺀 문자열 클래스
+
+- StringBuffer와 완전이 똑같은 기능으로 작성되어 있어서 소스코드에서 StringBuffer대신 StringBuilder를 사용하도록 바꾸기만 하면 된다.
+
+- 성능향상이 반드시 필요한 경우를 제외하고 굳이 바꿀 필요는 없다. 
+
+  ```java
+  StringBuilder sb;
+  sb = new StringBuilder();
+  sb.append("abc");
+  ```
+
+
+
 ## String, StringBuilder, StringBuffer
 
 **차이점**
@@ -234,7 +251,7 @@ String은 불변객체(immutable) 입니다.
 
 StringBuilder는 가변객체이고, 비동기방식이어서 싱글스레드 환경에서 변화되는 문자열일 때 사용합니다. 비동기 방식이어서 속도가 빠릅니다.
 
-StringBuffer는 가변객체이고, 동기방식이어서 멀티스레드 환경에서 변화되는 문자열일 때 사용합니다. (동기방식이므로 thread safe합니다.)
+StringBuffer는 가변객체이고, 동기방식이어서 멀티스레드 환경에서 변화되는 문자열일 때 사용합니다. (멀티스레드에서 안전하므로 thread safe)
 
 
 
