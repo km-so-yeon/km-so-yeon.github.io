@@ -85,7 +85,7 @@ public abstract class Number implements java.io.Serializable {
   int i2 = Integer.parseInt("100", 2);		// 100(2) -> 4
   int i8 = Integer.parseInt("100", 8);		// 100(8) -> 64
   int i16 = Integer.parseInt("FF", 16);		// FF(16) -> 255
-  //int i16 = Integer.parseInt("FF");			// NumberFormatException 발생(10진수로 간주)
+  //int j16 = Integer.parseInt("FF");		// NumberFormatException 발생(10진수로 간주)
   ```
 
 
