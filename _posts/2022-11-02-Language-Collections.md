@@ -39,9 +39,64 @@ tags: [Java]
 
 
 
+## ArrayList
+
+- List 인터페이스를 구현한다.
+  - 데이터의 저장순서가 유지되고 중복을 허용한다.
+- Vector를 개선한 것이고, Vector의 구현원리와 기능적인 측면에서 동일하다. 
+  - Vector는 기존에 작성된 소스와 호환성을 위해서 남겨두고 있는 것뿐이기 때문에, 
+    Vector보다는 ArrayList를 사용할 것
+
+
+
+```java
+import java.util.*;
+
+class ArrayListEx {
+  public static void main(String[] args) {
+    
+    ArrayList list1 = new ArrayList(10);	// 인자를 넘기지 않을 때는 기본 크기 10으로 생성
+    list1.add(new Integer(5));
+    list1.add(new Integer(4));
+    list1.add(new Integer(3));
+    list1.add(new Integer(2));
+    list1.add(new Integer(1));
+    
+    ArrayList list2 = new ArrayList(list1.subList(1, 3));
+    print(list1, list2);
+    
+    Collections.sort(list1);
+    print(list1);
+    
+    list1.set(4, "A");
+    print(list1);
+    
+    for(int i = list2.size()-1; i >= 0; i--) {
+      if(list1.contains(list2.get(i))) {
+        list1.remove(list2.get(i));
+      }
+    }
+    print(list1);
+    
+  }
+}
+```
+
+```
+list1:[5, 4, 3, 2, 1]
+list2:[4, 3]
+
+list1:[1, 2, 3, 4, 5]
+
+list1:[1, 2, 3, 4, A]
+```
+
+
+
 
 ### 출처📎
 
 - 자바의 정석
 - [TCPschool](http://www.tcpschool.com/java/java_collectionFramework_concept)
+
 
