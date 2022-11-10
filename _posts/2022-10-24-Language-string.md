@@ -88,10 +88,6 @@ char c = ' ';		// 공백으로 초기화
 
 
 
-[String 메소드](https://www.w3schools.com/java/java_ref_string.asp)
-
-
-
 **기본형과 문자열 간 변환방법**
 
 - 기본형 → 문자열
@@ -117,6 +113,40 @@ char c = ' ';		// 공백으로 초기화
 
   - parseInt를 통해 Integer로 반환되지만 오토박싱에 의해 Integer가 int로 자동변환된다.
   - 래퍼 클래스 : 기본형 타입의 첫 글자가 대문자인 것
+
+
+
+
+[String 메소드](https://www.w3schools.com/java/java_ref_string.asp)
+
+```java
+// String 클래스 - 바뀔 일이 거의 없고 문자로 replace를 써야할 때 사용
+// 생성
+String str = "abc";
+// 추가
+str = str + "def";
+// 길이
+str.length();
+// 비교
+str.equals("abcde");
+// 찾기 (문자로 찾기, 인덱스로 찾기)
+str.indexOf("cd");	// 2 (없을 경우 -1)
+str.charAt(2);		// c
+// 바꾸기
+str.replace("cd", "CD");
+// 나누기
+str.split(",");
+// 합치기
+str.join(",");
+// 대문자로 바꾸기
+str.toUpperCase();
+// 앞뒤 공백지우기
+str.trim();
+// 기본형 <-> 스트링
+String str = String.valueOf(123);
+int num = Integer.valueOf("123");
+```
+
 
 
 
@@ -174,7 +204,7 @@ public StringBuffer(String str) {
 
 ```java
 // 새로운 길이(newCapacity)의 배열을 생성한다(newCapacity는 정수값)
-char newValue[] = new char]newCapacity;
+char newValue[] = new char[newCapacity];
 
 // 배열 value의 내용을 배열 newValue로 복사한다.
 System.arraycopy(value, 0, newValue, 0, count);	// count는 문자열의 길이
@@ -223,7 +253,36 @@ System.out.println(sb.equals(sb2));		// false
 
 
 
+
 [StringBuffer 메소드](https://docs.oracle.com/javase/7/docs/api/java/lang/StringBuffer.html)
+
+```java
+// StringBuffer 클래스 - 계속 추가되거나 뒤집힐 일이 생길 때 사용
+// 생성
+StringBuffer sb = new StringBuffer("abc");
+// 추가
+sb.append("def").append("ghi");
+sb.insert(3, "***");		// abc***defghi
+// 삭제
+sb.delete(3, 6);			// abcdefghi
+// 길이
+sb.length();
+// 비교
+toString()으로 바꾼 후 equals()로 비교
+// 찾기 (문자로 찾기, 인덱스로 찾기)
+sb.indexOf("cd");	// 2 (없을 경우 -1)
+sb.charAt(2);		// c
+sb.substring(6, 9);	// cba
+// 바꾸기
+sb.replace(6, 9, "123");	// abcdef123 (6부터 8까지 "123"으로 대체)
+// 뒤집기
+sb.reverse();			// 321fedcba
+// String <-> StringBuffer
+String str = sb.toString();
+StringBuffer sb = new StringBuffer(str);
+```
+
+
 
 
 
@@ -240,6 +299,7 @@ StringBuffer에서 쓰레드의 동기화만 뺀 문자열 클래스
   sb = new StringBuilder();
   sb.append("abc");
   ```
+
 
 
 
