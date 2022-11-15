@@ -39,6 +39,129 @@ tags: [Java]
 
 
 
+## Iterator, ListIterator, Enumeration
+
+컬렉션에 저장된 요소를 접근하는데 사용되는 인터페이스
+
+- Enumeration : Iterator의 구버전 (가능하면 Iterator를 사용할 것)
+- ListIterator : Iterator의 기능을 향상시킨 것
+
+
+
+#### Iterator
+
+Iterator 인터페이스를 통해 컬렉션의 요소를 읽어오는 방법을 표준화했다.
+
+- 코드의 일관성을 유지하고 재사용성을 높인다. (객체지향을 이룬다.)
+
+```java
+public interface Iterator {
+  boolean hasNext();
+  Object next();
+  void remove();
+}
+public interface Collection {
+  ...
+  public Iterator iterator();
+  ...
+}
+```
+
+컬렉션에 저장된 각 요소에 접근하는 기능을 가진 Iterator인터페이스를 정의하고,
+Collection인터페이스에는 Iterator를 반환하는 iterator()를 정의하고 있다.
+
+
+
+**컬렉션의 각 요소를 읽어오는 방법**
+
+Collection인터페이스를 구현한 컬렉션 클래스에서 `Iterator`를 사용할 수 있다. (List, Set 인터페이스)
+
+```java
+Collection c = new ArrayList();	// 다른 컬렉션으로 변경 시 이 부분만 수정하면 된다.
+Iterator it = c.iterator();
+
+// c에 요소 추가하는 과정
+
+while(it.hasNext()) {
+  System.out.println(it.next());
+}
+```
+
+1. 컬렉션 클래스에 대해 iterator()를 호출하여 Iterator를 얻는다.
+2. 반복문을 사용해서 컬렉션 클래스의 요소들을 읽어온다.
+
+- 참조변수의 타입을 Collection으로 하는 이유
+  예를 들어 ArrayList에서 LinkedList로 바꿀 때 선언문 하나만 바꾸면 나머지 코드는 검토하지 않아도 되기 때문이다. 참조변수 타입이 Collection이므로 Collection에 정의되지 않은 메서드는 사용되지 않았을 것이기 때문이다.
+
+
+
+**Map인터페이스를 구현한 컬렉션 클래스의 Iterator를 얻는 방법**
+
+키와 값을 쌍으로 저장하기 때문에 iterator()를 직접 호출 할 수 없다.
+
+```java
+Map map = new HashMap();
+Iterator it = map.entrySet().iterator();	// 아래 두 문장을 합친 것
+
+// Set eSet = map.entrySet();
+// Iterator it = eSet.iterator();
+```
+
+1. keySet()이나 entrySet()과 같은 메서드를 통해 Set 형태로 가져온다.
+2. iterator()를 호출하여 Iterator를 얻는다.
+
+
+
+#### ListIterator
+
+컬렉션의 요소에 접근할 때 양방향으로 조회 가능하도록 기능 추가
+
+- Iterator를 상속받아서 기능을 추가한 것
+- List를 구현한 경우에만 사용 가능하다.
+
+```java
+ArrayList a = new ArrayList();	// 다른 컬렉션으로 변경 시 이 부분만 수정하면 된다.
+ListIterator it = a.listIterator();
+
+// a에 요소 추가하는 과정
+
+while(it.hasNext()) {
+  System.out.print(it.next());
+}
+System.out.println();
+
+while(it.hasPrevious()) {
+  System.out.print(it.previous());
+}
+System.out.println();
+```
+
+
+
+#### remove()
+
+Iterator의 remove()는 단독으로 쓰일 수 없고, **next()와 같이 써야한다.**
+
+- remove()를 호출하기 전에 반드시 next()가 호출된 상태여야 한다.
+- 특정 위치의 요소를 삭제하는 것이 아니라 읽어온 위치의 요소를 삭제한다.
+
+
+- next()의 호출없이 remove()를 호출하면 IllegalStateException이 발생한다.
+
+```java
+ArrayList a = new ArrayList();
+Iterator it = a.iterator();
+
+// a에 요소 추가하는 과정
+
+while(it.hasNext()) {
+  it.next();
+  it.remove();
+}
+```
+
+
+
 
 
 
