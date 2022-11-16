@@ -162,6 +162,90 @@ while(it.hasNext()) {
 
 
 
+## Comparator, Comparable
+
+Comparator 혹은 Comparable을 구현하면 객체들을 비교할 수 있게 된다.
+
+- Wrapper 클래스와 String, Date, File 등의 클래스들은 Comparable을 구현하여 인스턴스들을 오름차순으로 정렬할 수 있다.
+
+```java
+public interface Comparator {
+  int compare(Object o1, Object o2);
+  boolean equals(Object obj);
+}
+public interface Comparable {
+  public int compareTo(Object o);
+}
+```
+
+- compare(), compareTo()는 두 객체가 같으면 0, 비교하는 값보다 작으면 음수, 크면 양수를 반환하도록 구현해야 한다.
+- equals()는 Comparator를 구현하는 클래스는 오버라이딩이 필요할 수도 있다는 것을 알리기 위해서 정의한 것일 뿐 그냥 compare()만 구현하면 된다.
+
+
+
+#### 차이
+
+Comparable
+
+- 자기 자신과 파라미터로 들어오는 객체를 비교
+- compareTo() 메소드를 반드시 구현해야 한다.
+- lang패키지에 있어서 import를 해줄 필요가 없다.
+
+Comparator
+
+- 파라미터로 들어오는 두 객체를 비교
+- compare() 메소드를 반드시 구현해야 한다.
+- util패키지에 있다.
+
+
+
+#### 구현방법
+
+Comparable 예시
+
+```java
+public class ClassName implements Comparable<ClassName> {
+  int value;
+  
+  public int compareTo(ClassName o) {
+    int thisVal = this.value;
+    int anotherVal = o.value;
+    
+    // 방법1. 비교하는 값이 크면 -1, 같으면 0, 작으면 1을 반환한다. (권장)
+    return (thisVal < anotherVal ? -1 : (thisVal == anotherVal ? 0 : 1));
+    
+    // 방법2. 두 비교대상의 값 차이를 반환한다. (Overflow, Underflow가 발생할 수 있으니 주의)
+    // return thisVal - anotherVal;
+  }
+}
+```
+
+
+
+Comparator 예시
+
+```java
+import java.util.Comparator;	// import 필요
+public class ClassName implements Comparator<ClassName> {
+  int value;
+  
+  public int compare(ClassName o1, ClassName o2) {
+    int o1Val = o1.value;
+    int o2Val = o2.value;
+    
+    // 방법1. 비교하는 값이 크면 -1, 같으면 0, 작으면 1을 반환한다. (권장)
+    return (o1Val < o2Val ? -1 : (thisVal == anotherVal ? 0 : 1));
+    
+    // 방법2. 두 비교대상의 값 차이를 반환한다. (Overflow, Underflow가 발생할 수 있으니 주의)
+    // return o1Val - o2Val;
+  }
+}
+```
+
+
+
+
+
 
 
 
@@ -169,5 +253,6 @@ while(it.hasNext()) {
 
 - 자바의 정석
 - [TCPschool](http://www.tcpschool.com/java/java_collectionFramework_concept)
+- [st-lab](https://st-lab.tistory.com/243)
 
 
