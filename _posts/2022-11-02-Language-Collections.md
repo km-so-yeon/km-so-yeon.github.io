@@ -244,8 +244,54 @@ public class ClassName implements Comparator<ClassName> {
 
 
 
+#### 정렬
 
+| 메소드                                      | 설명                                   |
+| ---------------------------------------- | ------------------------------------ |
+| static void sort(Object[] a)             | 객체 배열에 저장된 객체가 구현한 Comparable에 의한 정렬 |
+| static void sort(Object[] a, Comparator c) | 지정한 Comparator에 의한 정렬                |
 
+**사용방법**
+
+```java
+import java.util.*;
+
+class ComparatorEx {
+  public static void main(String[] args) {
+    String[] strArr = {"apple", "banana", "Durian", "cherry"};
+    
+    Arrays.sort(strArr);	// String의 Comparable 구현에 의한 정렬
+    System.out.println(Arrays.toString(strArr));	// Durian, apple, banana, cherry
+    
+    Arrays.sort(strArr, new Descending());	// 역순 정렬
+    System.out.println(Arrays.toString(strArr));	// cherry, banana, apple, Durian
+
+    Arrays.sort(strArr, String.CASE_INSENSTIVE_ORDER);	// 대소문자 구분 안함
+    System.out.println(Arrays.toString(strArr));	// apple, banana, cherry, Durian
+  }
+  
+  class Descending implements Comparator {
+    public int compare(Object o1, Object o2) {
+      if ( o1 instanceof Comparable && o2 instanceof Comparable) {
+        // 매개변수가 Object 타입이기 때문에 Comparable로 형변환해야 한다.
+        Comparable c1 = (Comparable)o1;
+        Comparable c2 = (Comparable)o2;
+        return c1.compareTo(c2) * -1;
+        
+        // 방법1. -1을 곱해서 기본 정렬방식의 역으로 변경한다.
+        // 방법2. c2.compareTo(c1) 처럼 순서를 바꾼다.
+      }
+    }
+  }
+  
+}
+```
+
+- 문자열의 정렬은 유니코드가 작은 값에서 큰 값으로 정렬된다. (공백, 숫자, 대문자, 소문자 순)
+
+1. Comparable을 구현한 객체에서 구현된 내용에 따른 정렬
+2. Comparator를 구현한 객체 사용
+3. 상수 형태로 제공하는 Comparator 사용(예 - String.CASE_INSENSTIVE_ORDER)
 
 
 
