@@ -25,7 +25,7 @@ tags: [Java]
 
 객체를 삭제하면 삭제할 객체의 바로 다음에 있는 데이터를 한 칸씩 위로 복사해서 삭제할 객체를 덮어쓰는 방식으로 처리한다. 만일 삭제할 객체가 마지막 데이터라면, 복사할 필요없이 단순히 null로 변경해준다.
 
-![collections](/assets/img/collections2.png){:width="80%" height="80%"}
+![collections2](/assets/img/collections2.png){:width="80%" height="80%"}
 
 1. System.arraycopy(data, 3, data, 2, 2)
    data[3]에서 data[2]로 2개의 데이터를 복사하라는 의미
@@ -38,7 +38,7 @@ tags: [Java]
 
 ## LinkedList
 
-![collections](/assets/img/collections3.png){:width="80%" height="80%"}
+![collections3](/assets/img/collections3.png){:width="80%" height="80%"}
 
 - **불연속적으로 존재하는 데이터를 서로 연결한 형태**로 구성되어 있다.
   - 배열처럼 데이터를 이동하기 위해 복사하는 과정이 없기 때문에 처리속도가 매우 빠르다.
@@ -52,12 +52,12 @@ tags: [Java]
 
 #### 객체 삭제 및 추가
 
-![collections](/assets/img/collections4.png){:width="80%" height="80%"}
+![collections4](/assets/img/collections4.png){:width="80%" height="80%"}
 
 객체를 삭제하기 위해서는
 삭제하고자 하는 요소의 이전요소가 삭제하고자 하는 요소의 다음 요소를 참조하도록 변경하면 된다.
 
-![collections](/assets/img/collections5.png){:width="80%" height="80%"}
+![collections5](/assets/img/collections5.png){:width="80%" height="80%"}
 
 객체를 추가하기 위해서는
 
@@ -69,7 +69,7 @@ tags: [Java]
 
 #### 더블 링크드 리스트(이중 연결리스트, doubly linked list)
 
-![collections](/assets/img/collections6.png){:width="80%" height="80%"}
+![collections6](/assets/img/collections6.png){:width="80%" height="80%"}
 
 - 링크드 리스트는 이동방향이 단방향이기 때문에 다음 요소에 대한 접근이 쉽지만 이전 요소에 대한 접근이 어렵다. 
 - 더블 링크드 리스트는 링크드 리스트에 참조변수를 하나 더 추가하여 **이전 요소에 대한 참조가 가능**하도록 한다. (그 외에는 링크드 리스트와 같다.)
@@ -78,7 +78,7 @@ tags: [Java]
 
 **더블 써큘러 링크드 리스트(이중 원형 연결리스트, doubly circular linked list)**
 
-![collections](/assets/img/collections7.png){:width="80%" height="80%"}
+![collections7](/assets/img/collections7.png){:width="80%" height="80%"}
 
 - 더블 써큘러 링크드 리스트는 더블 링크드 리스트의 첫 번째 요소와 마지막 요소를 연결시킨 것이다.
 
