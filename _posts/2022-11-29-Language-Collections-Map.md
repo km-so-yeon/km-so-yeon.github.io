@@ -100,7 +100,26 @@ public class HashMap extends AbstractMap implements Map, Cloneable, Serializable
   ```
 
 
+- 객체를 추가할 때 기존에 저장된 요소와 같은 것인지 판별하기 위해 `equals()`와 `hashCode()`를 호출한다. (HashSet과 동일)
+  - `equals()`와 `hashCode()`를 목적에 맞게 오버라이딩해야 한다.
 
+
+
+## TreeMap
+
+- 이진 검색 트리의 형태로 키와 값의  쌍으로 이루어진 데이터를 저장한다.
+  - HashMap이 검색에 관한 대부분의 경우에서 더 뛰어나므로 HashMap을 사용하는 것이 좋다. 
+    (범위검색, 정렬이 필요한 경우 제외)
+  - 객체를 추가할 때마다 키가 오름차순으로 정렬된다.
+
+
+
+## Properties
+
+- HashMap의 구버전인 Hashtable을 상속받아 구현한 것
+- (String, String) 의 형태로 저장하는, 보다 단순화된 컬렉션 클래스
+  - 주로 애플리케이션의 환경설정과 관련된 속성(property)를 저장하는데 사용된다.
+- 데이터를 파일로부터 읽고 쓰는 편리한 기능을 제공한다.
 
 
 
