@@ -105,6 +105,7 @@ public class HashMap extends AbstractMap implements Map, Cloneable, Serializable
 
 
 
+
 ## TreeMap
 
 - 이진 검색 트리의 형태로 키와 값의  쌍으로 이루어진 데이터를 저장한다.
@@ -114,12 +115,48 @@ public class HashMap extends AbstractMap implements Map, Cloneable, Serializable
 
 
 
+
 ## Properties
 
 - HashMap의 구버전인 Hashtable을 상속받아 구현한 것
+  - Map 특성 상 저장순서를 유지하지 않는다.
 - (String, String) 의 형태로 저장하는, 보다 단순화된 컬렉션 클래스
   - 주로 애플리케이션의 환경설정과 관련된 속성(property)를 저장하는데 사용된다.
 - 데이터를 파일로부터 읽고 쓰는 편리한 기능을 제공한다.
+
+
+
+
+#### 저장
+
+```java
+Properties prop = new Properties();
+
+prop.setProperty("timeout", "30");
+prop.setProperty("size", "10");
+```
+
+- 기존에 같은 키로 저장된 값이 있는 경우 그 값을 Object타입으로 반환하고, 없을 경우 null을 반환한다.
+
+
+
+#### 읽기
+
+```java
+prop.getProperty("timeout");
+prop.getProperty("capacity", "20");
+
+prop.list(System.out);		// System.out은 System클래스에 정의된 PrintStream타입의 static변수
+/*
+size=30
+capacity=20	<- defaultValue
+timeout=30
+size=10
+*/
+```
+
+- 저장된 값을 읽어올 때 읽어오려는 키가 존재하지 않으면 지정된 기본값(defaultValue)를 반환한다.
+- list메서드를 이용하면 저장된 모든 데이터를 화면 또는 파일에 편리하게 출력할 수 있다.
 
 
 
