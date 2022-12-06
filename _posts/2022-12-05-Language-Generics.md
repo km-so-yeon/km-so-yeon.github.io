@@ -19,11 +19,15 @@ tags: [Java]
 
 
 
+
 #### 장점
 
 1. **타입 안정성을 제공한다.**
    의도하지 않은 타입의 객체가 저장되는 것을 막고, 저장된 객체를 꺼내올 때 원래의 타입과 다른 타입으로 잘못 형변환 되어 발생할 수 있는 오류를 줄여준다.
 2. **타입체크와 형변환을 생략할 수 있으므로, 코드가 간결해진다.**
+
+
+
 
 
 
@@ -47,6 +51,7 @@ class Box<T> {
 
 
 
+
 #### 객체 생성
 
 참조변수와 생성자에 타입 T 대신 사용될 실제 타입을 지정해주어야 한다.
@@ -62,23 +67,33 @@ String item = b.getItem();	// 형변환 필요없음
 
 
 
-- Generic class인데도 예전의 방식으로 객체를 생성하는 것이 허용된다. 
+Generic class이어도 예전의 방식으로 객체를 생성하는 것이 허용된다. 
 
-  ```java
-  Box b = new Box();
-  b.setItem("ABC");		// 경고. unchecked or unsafe operation
-  ```
+```java
+Box b = new Box();
+b.setItem("ABC");		// 경고. unchecked or unsafe operation
+```
 
-  - 제네릭 도입 이전의 코드와 호환을 위해 허용하였다.
-  - 다만 제네릭 타입을 지정하지 않아서 안전하지 않다는 경고가 발생한다.
-    (unchecked or unsafe operation)
-  - Object타입을 지정하면, 타입을 지정하지 않은 것이 아니라 알고 적은 것이므로 경고는 발생하지 않는다.
-  - **반드시 타입을 지정해서 Generic과 관련된 경고가 나오지 않도록 할 것**
-
-
+- 제네릭 도입 이전의 코드와 호환을 위해 허용하였다.
+- 다만 제네릭 타입을 지정하지 않아서 안전하지 않다는 경고가 발생한다.
+  (unchecked or unsafe operation)
+- Object타입을 지정하면, 타입을 지정하지 않은 것이 아니라 알고 적은 것이므로 경고는 발생하지 않는다.
+- **반드시 타입을 지정해서 Generic과 관련된 경고가 나오지 않도록 할 것**
 
 
 
+#### 용어
+
+![generic](/assets/img/generic.png){: width="60%" height="60%"}
+
+- Box\<T>  : 제네릭 클래스 ('T의 Box' 또는 'T Box'라고 읽는다.)
+- T : 타입 변수 또는 타입 매개변수
+- Box : 원시 타입
+
+![generic](/assets/img/generic2.png){: width="60%" height="60%"}
+
+- 제네릭 타입 호출 : 타입 매개변수에 타입을 지정하는 것 (Box\<String>은 컴파일 후 원시 타입인 Box로 바뀐다. == 제네릭 타입 제거)
+- String : 대입된 타입
 
 
 
