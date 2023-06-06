@@ -2,7 +2,7 @@
 title: "[Java] Nested 클래스"
 author: "김소연"
 date: 2023-06-06 22:00:00 -0500
-categories: [Language]
+categories: [Language, Java]
 tags: [Java]
 ---
 
