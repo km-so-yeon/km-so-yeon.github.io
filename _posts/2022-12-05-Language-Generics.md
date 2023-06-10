@@ -1,7 +1,7 @@
 ---
 title: "[Java] Generics(제네릭)"
 author: "김소연"
-date: 2022-12-05 21:00:00 -0500
+date: 2023-06-10 21:00:00 -0500
 categories: [Language, Java]
 tags: [Java]
 ---
@@ -10,12 +10,60 @@ tags: [Java]
 
 ## Generic(제네릭)
 
-다양한 타입의 객체들을 다루는 메서드나 컬렉션 클래스에서
-컴파일 시 타입 체크(compile-time type check)를 해주는 기능이다.
+클래스나 메소드에서 사용할 내부 데이터 타입을 컴파일 시 미리 지정하는 방법이다.
 
 - **다룰 객체의 타입을 미리 명시해줌으로써, 번거로운 형변환을 줄여준다.**
   - 기존에는 다양한 종류의 타입을 다루는 메서드나 매개변수나 리턴타입으로 Object타입의 참조변수를 많이 사용했고, 그로 인해 형변환이 불가피했지만, 이제는 Object 타입 대신 원하는 타입을 지정하기만 하면 된다.
+- 값을 지정할 때 미리 지정한 타입이 아닌 잘못된 타입으로 치환할 경우 컴파일이 안된다. (실행 시 잘못 형변환하여 예외가 발생할 일은 없다.)
+- 데이터의 타입을 일반화한다(generalize)는 의미이다.
 - JDK1.5에서 처음 도입되었다.
+
+
+
+#### Object 타입을 사용해서 구현할 경우
+
+- 값을 꺼낼 때 각각 형변환을 해주어야 한다.
+- 변수의 타입이 어떤 타입인지 혼동될 수 있다. (instanceof를 통해 점검)
+
+```java
+public class CastingDto implements Serializable {
+	private Object object
+	public void setObject(Object object) { this.object = object };
+	public void getObject() { return object; }
+}
+```
+
+```java
+public class GenericSample {
+	public static void main(String[] args) {
+		GenericSample sample = new GenericSample();
+		sample.checkCastingDto();
+		sample.checkDto();
+		
+	}
+	
+	public void checkCastingDto(); {
+		// set
+		CastingDto dto1 = new CastingDto();
+		dto1.setObject(new StringBuffer());
+		
+		CastingDto dto2 = new CastingDto();
+		dto2.setObject(new StringBuilder());
+		
+		// get
+		StringBuffer temp1 = (StringBuffer)dto1.getObject();
+		StringBuffer temp2 = (StringBuilder)dto2.getObject();
+	}
+	
+	public void checkDto(CastingDto dto) {
+		Object tempObject = dto.getObject();
+		if(tempObject instanceof StringBuffer) {
+			System.out.println("StringBuffer");
+		} else if(tempObject instanceOf StringBuilder) {
+			System.out.println("StringBuilder");
+		}
+	}
+```
 
 
 
@@ -25,8 +73,6 @@ tags: [Java]
 1. **타입 안정성을 제공한다.**
    의도하지 않은 타입의 객체가 저장되는 것을 막고, 저장된 객체를 꺼내올 때 원래의 타입과 다른 타입으로 잘못 형변환 되어 발생할 수 있는 오류를 줄여준다.
 2. **타입체크와 형변환을 생략할 수 있으므로, 코드가 간결해진다.**
-
-
 
 
 
@@ -97,10 +143,117 @@ b.setItem("ABC");		// 경고. unchecked or unsafe operation
 
 
 
+## 제네릭 타입의 이름 정하기
+
+자바에서 정의한 기본 규칙 
+
+꼭 지켜야 컴파일이 되는 것은 아니지만, 다른 사람들이 볼 때 쉽게 이해할 수 있도록 따르는 것이 좋다.
+
+  - E : 요소(Element, 자바 Collection 에서 주로 사용됨)
+  - K : 키
+  - N : 숫자
+  - T : 타입
+  - V : 값
+  - S, U, V : 두 번째, 세 번째, 네 번째에 선언된 타입
+
+
+
+## `?` Wildcard 타입
+
+특정 타입 대신 `?`를 적어주면 어떤 타입이 제네릭 타입이 되더라도 상관없다.
+
+  - 메소드의 매개 변수로만 사용하는 것이 좋다.
+    - 메소드 내에서는 instanceof 로 제네릭 타입 확인
+
+    ```java
+    public void wildcardStringMethod(Box<?> b) {
+    	Object value = c.getItem();
+    	if(value instanceof String) {
+    		System.out.println(value);
+    	}
+    }
+    ```
+
+  - 어떤 객체를 와일드카드로 선언하고 객체의 값을 가져올 수는 있지만,
+    와일드카드로 객체를 선언했을 때에는 특정 타입으로 값을 지정하는 것은 불가능하다.
+
+    ```java
+    public void callWildcardMEthod() {
+    	Box<?> wildcard = new Box<String>();
+    	wildcard.setItem("A");	// 에러 발생 - 알 수 없는 타입에 String을 지정할 수 없다
+    }
+    ```
+
+
+
+## 제네릭 선언에 사용하는 타입의 범위 지정
+
+`? extends 타입`
+
+  - 제네릭 타입으로 해당 타입을 상속받은 모든 클래스를 사용할 수 있다.
+  - Bounded Wildcards : Bound는 경계라는 의미도 있기 때문에, 매개 변수로 넘어오는 제네릭 타입의 경계를 지정하는 데 사용한다는 의미로 해석하면 된다.
+
+```java
+public class Car {
+	protected String name;
+	public Car(String name) { this.name = name; }
+	public String toString() { return "Car name=" + name; }
+}
+```
+
+```java
+public class Bus extends Car {
+	public Bus(String name) { super(name); }
+	public String toString() { return "Bus name=" + name; }
+}
+```
+
+```java
+public void boundedWildcardMethod(Box<? extends Car> c) {
+	Car value = c.getItem();
+	System.out.println(value);
+}
+  
+public void callBusBoundedWildcardMethod() {
+	Box<Bus> wildcard = new Box<Bus>();
+	wildcard.setItem(new Bus("6900"));
+	boundedWildcardMethod(wildcard);		// Bus name=6900
+}
+```
+
+
+
+## 메소드를 제네릭하게 선언하기
+
+- wildcard로 메소드를 선언하면 매개 변수로 사용된 객체에 값을 추가할 수가 없다.
+    - wildcard 처럼 타입을 두리뭉실하게 하는 것 보다 명시적으로 메소드 선언 시 타입을 지정해주면 보다 견고한 코드를 작성할 수 있다.
+- 메소드의 리턴 타입 앞에 `<T>` 제네릭 타입을 선언해놓으면, 매개 변수에서 그 제네릭 타입이 포함된 객체를 받아서 처리할 수 있다.
+
+```java
+public <T> void genericMethod(Box<T> c, T addValue) {
+	c.setItem(addValue);
+    T value = c.getItem();
+	System.out.println(value);
+}
+```
+
+- Bounded Generic : 타입의 범위를 지정할 수 있다.
+
+  ```java
+  public <T extends Car> void boundedGenericMethod(Box<T> c, T addValue)
+  ```
+
+- 한 개 이상의 제네릭 타입은 콤마로 구분하여 나열하면 된다.
+
+  ```java
+  public <S, T extends Car> void multiGenericMethod(Box<T> c, T addValue, S another)
+  ```
+
+  
+
 
 
 ### 출처📎
 
 - 자바의 정석
-
-
+- 자바의 신
