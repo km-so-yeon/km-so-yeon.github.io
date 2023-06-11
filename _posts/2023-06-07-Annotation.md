@@ -2,8 +2,8 @@
 title: "[Java] Annotation"
 author: "김소연"
 date: 2023-06-07 21:00:00 -0500
-categories: [Language, java]
-tags: [java]
+categories: [Language, Java]
+tags: [Java]
 ---
 
 
