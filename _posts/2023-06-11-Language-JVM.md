@@ -41,7 +41,7 @@ tags: [Java]
 
 ## JVM 내부구조
 
-![jvm2](/assets/img/jvm2.JPG){:width="80%" height="80%"}
+![jvm2](/assets/img/jvm2.png){:width="80%" height="80%"}
 
 
 
