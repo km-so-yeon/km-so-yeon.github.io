@@ -41,7 +41,7 @@ tags: [Java]
 
 ## JVM 내부구조
 
-![jvm2](/assets/img/jvm2.png){:width="80%" height="80%"}
+![jvm2](/assets/img/jvm2.jpg){:width="80%" height="80%"}
 
 
 
@@ -161,11 +161,11 @@ Method Area에 로드된 클래스만 생성이 가능합니다.
 
 int, long, boolean 등 기본 자료형을 생성할 때 저장하는 영역이고, 임시적으로 사용되는 변수나 정보들이 저장되는 영역입니다.
 
-![jvm4](/assets/img/jvm4.JPG){:width="80%" height="80%"}
+![jvm4](/assets/img/jvm4.png){:width="80%" height="80%"}
 
 메서드 호출 시마다 각각의 스택 프레임(각 메서드만을 위한 공간)을 생성합니다. 그리고 메서드 안에서 사용되는 값들을 저장하고, 호출된 메서드의 매개변수, 지역변수, 리턴값 및 연산 시 일어나는 값들을 임시로 저장합니다. 메서드 수행이 끝나면 프레임 별로 삭제합니다.
 
-![jvm5](/assets/img/jvm5.JPG){:width="80%" height="80%"}
+![jvm5](/assets/img/jvm5.png){:width="80%" height="80%"}
 
 데이터 타입에 따라 Stack과 Heap에 저장되는 방식이 다릅니다.
 
