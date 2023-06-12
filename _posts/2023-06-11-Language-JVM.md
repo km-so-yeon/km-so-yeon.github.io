@@ -1,7 +1,7 @@
 ---
 title: "[Java] JVM"
 author: "김소연"
-date: 2023-06-011 15:00:00 -0500
+date: 2023-06-11 15:00:00 -0500
 categories: [Language, Java]
 tags: [Java]
 ---
