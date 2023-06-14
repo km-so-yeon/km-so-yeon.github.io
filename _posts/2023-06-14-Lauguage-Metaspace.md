@@ -33,7 +33,7 @@ PermGen과 Metaspace는 JVM Runtime Access Memory 중 **Method Area**에 해당�
 
 별도의 Permanent Generation Heap을 통해 관리되던 영역으로, JVM에서 크기를 설정해주어 관리해야 했다.
 
-- Non-Heap Memory이고, PermGen 영역에 해당한다.
+- Non-Heap Memory이고, (Heap 영역이 아닌) PermGen 영역에 해당한다.
 
 아래와 같은 정보들이 저장되고 있었다.
 - Class의 메타데이터 (바이트코드 포함)
