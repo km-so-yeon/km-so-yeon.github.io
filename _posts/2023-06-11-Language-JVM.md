@@ -117,14 +117,12 @@ JVM의 메모리 영역으로, 자바 애플리케이션을 실행할 때 사용
 
 JVM이 시작될 때 생성되는 공간으로 바이트코드를 처음 메모리 공간에 올릴 때 초기화되는 대상을 저장하기 위한 메모리 공간입니다. 
 
-정적 필드, 클래스 구조만을 가지고있다고 할 수 있습니다.
-
 - 초기화 코드 정보들
   - Filed Info : 멤버 변수의 이름, 데이터 타입, 접근 제어자 정보
-  - Method Info : 메소드 이름, return 타입, 함수 매개변수, 접근 제어자 정보
-  - Type Info : Class 인지 Interface 인지 여부 저장, Type의 속성, Super Class의 이름
-
-JVM이 동작하고 클래스가 로드될 때 적재되서 프로그램이 종료될 때까지 저장됩니다.
+  - Method Info : Method명, return 타입, 매개변수, 접근 제어자 정보
+  - Type Info : Type명 (패키지명 + 클래스명), Class 인지 Interface 인지 여부(종류) 저장, Type의 속성(접근제어자 등), Super Class의 이름, 사용된 Interface 정보
+  
+  👉 JVM이 동작하고 클래스가 로드될 때 적재되서 프로그램이 종료될 때까지 저장됩니다.
 
 - Runtime Constant Pool
 
@@ -133,6 +131,9 @@ JVM이 동작하고 클래스가 로드될 때 적재되서 프로그램이 종�
   - 이 Contrant Pool을 통해 해당 메소드나 필드의 실제 메모리 상 주소를 찾아 참조합니다.
 
   👉 상수 자료형을 저장하여 참조하고 중복을 막는 역할
+
+- Class Variable
+  - static 키워드로 선언된 변수가 저장된다.
 
 
 
