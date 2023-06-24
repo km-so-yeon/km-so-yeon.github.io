@@ -212,7 +212,7 @@ Old 영역에서는 Mark-Summary-Compaction 알고리즘을 사용한다.
 
 ### G1 GC (Garbage First GC)
 
-![gc4](/assets/img/gc4.png){:width="80%" height="80%"}
+![gc4](/assets/img/gc4.PNG){:width="80%" height="80%"}
 
 > 1. 바둑판의 각 영역에 객체를 할당하고 GC를 실행한다.
 > 2. 해당 영역이 꽉차면 다른 영역에서 객체를 할당하고 GC를 실행한다.
