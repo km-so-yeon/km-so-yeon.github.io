@@ -181,8 +181,276 @@ getCanonicalPath : D:\workspace
 | File[] **listFiles**(FileFilter filter)     | 현재 디렉터리의 하위에 있는 목록 중 매개 변수로 넘어온 filter의 조건에 맞는 목록을 File 배열로 리턴한다. |
 | File[] **listFiles**(FilenameFilter filter) | 현재 디렉터리의 하위에 있는 목록 중 매개 변수로 넘어온 filter의 조건에 맞는 목록을 File 배열로 리턴한다. |
 
+- FileFilter, FilenameFilter는 인터페이스이다.
+  - 어떤 조건을 주려면 이 인터페이스를 구현해야 한다.
+  - 메소드에서 파일이나 경로를 만날 때마다 accept() 메소드가 자동으로 수행된다. 따라서 accept() 메소드를 어떻게 구현했는지에 따라 필요한 파일의 목록이 달라진다.
+
+```java
+public class PNGFileFilter implements FileFilter {
+    
+    @Override
+    public boolean accept(File file) {
+        if(file.isFile()) {
+            String fileName = file.getName();
+            if(fileName.endsWith(".png")) return true;
+        }
+        return false;
+    }
+}
+```
+
+```java
+File file = new File(pathName);
+File[] mainFileList = file.listFiles(new PNGFileFilter());	// .png로 끝나는 파일들만 포함됨
+```
+
+
+
+## InputStream과 OutputStream
+
+자바의 I/O는 기본적으로 InputStream과 OutputStream이라는 Abstract 클래스를 통해 제공된다.
+
+- byte를 다루기 위한 것이다.
+
+
+
+### InputStream
+
+```java
+public abstract class InputStream extends Object implements Closeable { ... 
+```
+
+어떤 대상의 데이터를 읽을 때 InputStream의 자식 클래스를 통해서 읽으면 된다.
+
+#### 주요 메소드
+
+- int **read**(byte[] b) : 매개 변수로 넘어온 바이트 배열에 데이터를 담는다. (리턴값은 데이터를 담은 개수)
+- void **close**() : 해당 리소스를 닫을 때 사용 (필수!!)
+
+
+
+#### InputStream을 확장한 주요 클래스
+
+| 클래스            | 설명                                                         |
+| ----------------- | ------------------------------------------------------------ |
+| FileInputStream   | 파일을 읽는데 사용한다. 주로 우리가 쉽게 읽을 수 있는 텍스트 파일을 읽기 위한 용도라기보다 이미지와 같이 바이트 코드로 된 데이터를 읽을 때 사용한다. |
+| FilterInputStream | 다른 입력 스트림을 포괄하며, 단순히 InputStream 클래스가 Override 되어있다. |
+| ObjectInputStream | ObjectOutputStream으로 저장한 데이터를 읽는데 사용한다.      |
+
+- FilterInputStream 생성자는 protected로 선언되어 있어서 상속 받은 클래스에서만 객체를 생성할 수 있다.
+  - FilterInputStream을 확장한 클래스 : BufferedInputStream, CheckedInputStream, 등
+
+
+
+### OutputStream
+
+```java
+public abstract class OutputStream extends Object implements Closeable, Flushable { ...
+```
+
+어떤 대상의 데이터를 쓸 때 OutputStream의 자식 클래스를 통해서 쓰면 된다.
+
+- Closeable, Flushable 인터페이스를 구현하였다.
+
+  - Closeable : close() 메소드만 선언되어 있어 이 인터페이스를 구현하면 해당 리소스는 close()를 통해 닫으라는 의미이다.
+
+  - Flushable : flush() 메소드만 선언되어 있다. 어떤 리소스를 저장을 할 때 버퍼를 사용한다면 현재 버퍼에 있는 내용을 기다리지말고 무조건 저장하라는 의미이다.
+
+#### 주요 메소드
+
+- void **write**(byte[] b) : 매개 변수로 받은 바이트 배열을 저장한다.
+- void **close**() : 해당 리소스를 닫을 때 사용 (필수!!)
+
+
+
+## Reader와 Writer
+
+char 기반의 문자열을 처리하기 위한 클래스이다.
+
+### Reader
+
+```java
+public abstract class Reader extends Object implements Readable, Closeable { ... 
+```
+
+char 배열의 데이터를 읽을 때 사용한다.
+
+#### 주요 메소드
+
+- int **read**(char[] cbuf) : 매개 변수로 넘어온 char 배열에 데이터를 담는다. (리턴값은 데이터를 담은 개수)
+- abstract void **close**() : Reader에서 작업중인 대상을 해제한다. (필수)
+
+
+
+### Writer
+
+```java
+public abstract class Writer extends Object implements Appendable, Closeable, Flushable { ...
+```
+
+char 배열의 데이터를 쓸 때 사용한다.
+
+- Appendable 인터페이스를 구현한다.
+  - 각종 문자열을 추가하기 위해 선언되었다. (Java 5부터 추가)
+
+#### 주요 메소드
+
+- void **write**(char[] cbuf) : 매개 변수로 넘어온 char의 배열을 추가한다.
+  - void write(String str)
+- void **append**(char c) : 매개 변수로 넘어온 char를 추가한다.
+  - void append(CharSequense csq) : CharSequence를 구현한 String, StringBuilder, StringBuffer를 받아서 처리할 수 있다.
+- abstract void **flush**() : 버퍼에 있는 데이터를 강제로 대상 리소스에 쓰도록 한다.
+- abstract void **close**() : 쓰기 위해 열은 스트림을 해제한다.
+
+
+
+## 텍스트 파일 쓰기
+
+### 1. FileWriter 클래스 사용
+
+char 기반의 내용을 파일로 쓸 수 있다.
+
+#### 주요 생성자
+
+- FileWriter(File file) : File 객체를 매개 변수로 받아 객체를 생성한다.
+- FileWriter(String fileName) : 지정한 문자열의 경로와 파일 이름에 해당하는 객체를 생성한다.
+- FileWriter(String fileName, boolean append) : 지정한 문자열의 경로와 파일 이름에 해당하는 객체를 생성한다. append값에 따라 데이터를 추가할지 덮어쓸지 정한다.
+
+### 2. BufferedWriter 클래스 사용
+
+write(), append() 메소드를 사용해서 데이터를 쓰면, 메소드를 호출할 때마다 파일에 쓰기 때문에 매우 비효율적이다. 이러한 단점을 보완하기 위해 BufferWriter 클래스를 사용한다.
+
+#### 생성자
+
+- BufferedWriter(Writer out)
+- BufferedWriter(Writer out, int size)
+
+Write 객체를 구현한 BufferWriter를 매개 변수로 받을 수 있다.
+
+```java
+public void writeFile(String fileName, int numberCount) {
+    FileWriter fileWriter = null;
+    BufferedWriter bufferedWriter = null;
+    try {
+        fileWriter = new FileWriter(fileName);
+        bufferedWriter = new BufferedWriter(fileWriter);
+        for(int loop = 0; loop <= numberCount; loop++) {
+            bufferedWriter.write(Integer.toString(loop));	// 데이터 입력
+            bufferedWriter.newLine();	// 줄바꿈
+        }
+        System.out.println("Write success");
+    } catch (IOException ioe) {
+        ioe.printStackTrace();
+    } catch (Exception e) {
+        e.printStackTrace();
+    } finally {
+        if(bufferedWriter != null) {
+            try {
+                bufferedWriter.close();
+            } catch(IOException ioe) {
+				ioe.printStackTrace();
+            }
+        }
+        if(fileWriter != null) {
+            try {
+                fileWriter.close();
+            } catch(IOException ioe) {
+                ioe.printStackTrace();
+            }
+        }
+    }
+}
+```
+
+FileWriter 객체를 생성할 때 IOException이 발생하는 경우
+
+- 매개 변수로 넘어온 파일이름이 파일이 아닌 경로를 의미할 경우
+- 해당 파일이 존재하지 않지만, 권한 등의 문제로 생성할 수 없는 경우
+- 파일이 존재하지만, 여러 이유로 파일을 열 수 없는 경우
+
+FileWriter나 BufferedWriter 변수를 try문 안에서 선언했다면, finally에서 close() 메소드를 호출할 수 없다.
+
+- 반드시 try문장 전에 변수를 선언해야 한다.
+- finally에서 close()하는 이유 : try블록에서 구현했다면 중간에 예외가 발생했을 때 close()가 호출되지 않는다. catch 블록에서 구현했다면 일일이 close()를 모두 구현해주어야 한다.
+
+객체 생성 시에는 FileWriter, BufferWriter 순으로, 객체를 닫아줄 때는 BufferedWriter, FileWriter 순으로 닫아준다.
+
+
+
+## 텍스트 파일 읽기
+
+FileReader, BufferedReader 클래스 사용
+
+```java
+public void readFile(String fileName, int numberCount) {
+    FileReader fileReader = null;
+    BufferedReader bufferedReader = null;
+    try {
+        fileReader = new FileReader(fileName);
+        bufferedReader = new BufferedReader(fileReader);
+        // 읽기 시작
+        Strint data;
+        while((data=bufferedReader.readLine()) != null) {
+            System.out.println(data);
+        }
+        // 읽기 끝
+        System.out.println("Reader success");
+    } catch (IOException ioe) {
+        ioe.printStackTrace();
+    } catch (Exception e) {
+        e.printStackTrace();
+    } finally {
+        if(bufferedReader != null) {
+            try {
+                bufferedReader.close();
+            } catch(IOException ioe) {
+				ioe.printStackTrace();
+            }
+        }
+        if(fileReader != null) {
+            try {
+                fileReader.close();
+            } catch(IOException ioe) {
+                ioe.printStackTrace();
+            }
+        }
+    }
+}
+```
+
+FileReader 대신 File, 
+BufferedReader 대신 Scanner을 사용했을 경우
+
+```java
+public void readFileWithScanner(String fileName) {
+    File file = new File(fileName);
+	Scanner scanner = null;
+    try {
+        scanner = new Scanner(file);
+        // 읽기 시작
+        while(scanner.hasNextLine()) {	// 다음 줄이 있는지 확인
+            System.out.println(scanner.nextLine());	// 다음 줄의 내용을 한 줄씩 리턴
+        }
+        // 읽기 끝
+        System.out.println("Reader success");
+    } catch (IOException ioe) {
+        ioe.printStackTrace();
+    } catch (Exception e) {
+        e.printStackTrace();
+    } finally {
+        if(scanner != null) {
+            scanner.close();
+        }
+    }
+}
+```
+
+
+
 
 
 ## 출처
+
+- 자바의 신
 
 - [qna.programmers.co.kr](https://qna.programmers.co.kr/questions/296/%EC%9E%90%EB%B0%94%EC%97%90%EC%84%9C-getpath-getabsolutepath-getcanonicalpath%EC%9D%98-%EC%B0%A8%EC%9D%B4%EC%A0%90%EC%9D%B4-%EB%AD%94%EA%B0%80%EC%9A%94)
