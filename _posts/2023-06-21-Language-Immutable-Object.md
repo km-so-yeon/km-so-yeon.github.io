@@ -313,6 +313,12 @@ getter에서는 Collection의 `unmodifiableList()` 를 사용합니다.
 
 
 
+이 외에도 여러 라이브러리의 메소드들을 통해 [immutable 객체를 만드는 방법](https://www.baeldung.com/java-immutable-list)이 있다.
+
+
+
+
+
 ## Immutable Object의 장단점
 
 ### 장점
