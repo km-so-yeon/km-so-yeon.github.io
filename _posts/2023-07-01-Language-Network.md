@@ -268,7 +268,7 @@ UDP 통신을 할 때 스트림을 사용하지 않고 대신 사용하는 클�
 
 | 생성자                                                       | 설명                                                         |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| DatagramPacket(byte[] buf, int length)                       | length의 크기를 갖는 **데이터를 받기위한** 객체 생성         |
+| DatagramPacket(**byte[] buf, int length**)                   | length의 크기를 갖는 **데이터를 받기위한** 객체 생성         |
 | DatagramPacket(byte[] buf, int length, InetAddress address, int port) | 지정된 address와 port로 데이터를 전송하기 위한 객체 생성     |
 | DatagramPacket(byte[] buf, int offset, int length)           | 버퍼의 offset이 할당되어 있는 데이터를 전송하기 위한 객체 생성 |
 | DatagramPacket(byte[] buf, int offset, int length, InetAddress address, int port) | 버퍼의 offset이 할당되어 있고, 지정된 address와 port로 데이터를 전송하기 위한 객체 생성 |
@@ -292,10 +292,92 @@ UDP 통신을 할 때 스트림을 사용하지 않고 대신 사용하는 클�
 
 ### UDP 통신
 
+#### 서버
+
 ```java
+public void startServer() {
+    DatagramSocket server = null;
+    try {
+        server = new DatagramSocket(9999);
+        int bufferLength = 256;
+        byte[] buffer = new byte[bufferLength];
+        DatagramPacket packet = new DatagramPacket(buffer, bufferLength);
+        while(true) {
+            System.out.println("Server:Waiting for request.");
+            server.receive(packet);
+            int dataLength = packet.getLength();
+            System.out.println("Server:received. Data length=" + dataLength);
+            String data = new String(packet.getData(), 0, dataLength);
+            System.out.println("Received data:" + data);
+            if(data.equals("EXIT")) {
+				break;
+            }
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    } finally {
+        if(server != null) {
+            try {
+                server.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
 ```
 
+1. DatagramSocket 객체 생성
+   포트 번호를 9999로 지정해서 객체를 생성한다.
+2. DatagramPacket 객체 생성
+   byte 배열과 크기로 지정해서 데이터를 받기위한 객체를 생성한다.
+3. `server.receive(packet)`
+   데이터를 받기 위해서 대기하고 있다가, 데이터가 넘어오면 packet 객체에 데이터를 담는다.
+4. `packet.getLength()`
+   전송받은 데이터의 크기를 확인한다.
+5. `new String(packet.getData(), 0, dataLength)`
+   String 클래스의 생성자를 사용하여 byte 배열로 되어있는 데이터를 String 문자열로 변경한다.
+6. `server.close()`
+   모든 처리가 끝나면 socket 객체를 닫는다.
 
+
+
+#### 클라이언트
+
+```java
+public void sendDatagramData(String data) {
+    try {
+        DatagramSocket client = new DatagramSocket();
+        InetAddress address = InetAddress.getByName("127.0.0.1");
+        byte[] buffer = data.getBytes();
+        DatagramPacket packet = new DatagramPacket(buffer, 0, buffer.length, address, 9999);
+        client.send(packet);
+        System.out.println("Cleint:Sent data");
+        client.close();
+        Thread.sleep(1000);
+    } catch(Exception e) {
+        e.printStackTrace();
+    }
+}
+```
+
+1. DatagramSocket 생성
+2. `InetAddress.getByName("127.0.0.1")`
+   InetAddress 클래스를 사용하여 데이터를 받을 서버의 IP를 설정한다.
+3. DatagramPacket 생성
+   데이터를 전송하기 위한 객체를 생성한다.
+   서버의 주소와 포트번호를 지정하면 데이터를 전송하기 위한 객체가 된다.
+4. `client.send(packet)`
+   데이터를 전송한다.
+5. `cleint.close()`
+   소켓 연결을 종료한다.
+
+
+
+UDP는 TCP와 다르게 데이터가 성공적으로 전송되지 않아도 예외를 발생시키지 않는다.
+
+- UDP로 통신할 때는 데이터를 받을 서버가 수행되지 않더라도 아무 이상 없이 클라이언트 프로그램이 종료된다.
+- TCP로 통신할 때는 서버에 접속하지 못하면 `ConnectException`이 발생한다.
 
 
 
