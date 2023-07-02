@@ -219,6 +219,86 @@ Connection refused
 
 
 
+## Datagram 관련 클래스
+
+#### UDP
+
+- TCP와 달리 데이터가 제대로 전달되었다는 보장을 하지 않는다.
+  (데이터의 유실이 있어도 문제가 없을 때에만 사용하는 것이 좋다.)
+
+#### DatagramSocket
+
+UPD 통신을 할 때 사용하는 클래스이다.
+
+- 클래스 하나에서 보내는 역할과 받는 역할을 모두 수행할 수 있다.
+
+#### DatagramPacket
+
+UDP 통신을 할 때 스트림을 사용하지 않고 대신 사용하는 클래스이다.
+
+
+
+### DatagramSocket
+
+#### 생성자
+
+| 생성자                                            | 설명                                                        |
+| ------------------------------------------------- | ----------------------------------------------------------- |
+| DatagramSocket()                                  | 소켓 객체 생성 후 사용 가능한 포트로 대기                   |
+| DatagramSocket(**DatagramSocketImpl impl**)       | 사용자가 지정한 SocketImpl 객체를 사용하여 소켓 객체만 생성 |
+| DatagramSocket(**int port**)                      | 소켓 객체 생성 후 지정된 port로 대기                        |
+| DatagramSocket(**int port, InetAddress address**) | 소켓 객체 생성 후 address와 port를 사용하는 서버에 연결     |
+| DatagramSocket(**SocketAddress address**)         | 소켓 객체 생성 후 address에 지정된 서버로 연결              |
+
+#### 주요 메소드
+
+| 메소드                                  | 설명                                                         |
+| --------------------------------------- | ------------------------------------------------------------ |
+| void **receive**(DatagramPacket packet) | 메소드 호출 시 요청을 대기하고, 만약 데이터를 받았을 때에는 pacekt 객체에 **데이터를 저장** |
+| void **send**(DatagramPacket packet)    | packet 객체에 있는 **데이터 전송**                           |
+| void **close**()                        | 더 이상 Socket을 사용할 필요가 없을 때 호출                  |
+
+
+
+### DatagramPacket
+
+#### 생성자
+
+하나만 데이터를 받기위한 생성자이고, 나머지는 데이터를 전송하기 위한 생성자이다.
+
+| 생성자                                                       | 설명                                                         |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| DatagramPacket(byte[] buf, int length)                       | length의 크기를 갖는 **데이터를 받기위한** 객체 생성         |
+| DatagramPacket(byte[] buf, int length, InetAddress address, int port) | 지정된 address와 port로 데이터를 전송하기 위한 객체 생성     |
+| DatagramPacket(byte[] buf, int offset, int length)           | 버퍼의 offset이 할당되어 있는 데이터를 전송하기 위한 객체 생성 |
+| DatagramPacket(byte[] buf, int offset, int length, InetAddress address, int port) | 버퍼의 offset이 할당되어 있고, 지정된 address와 port로 데이터를 전송하기 위한 객체 생성 |
+| DatagramPacket(byte[] buf, int offset, int length, SocketAddress address) | 버퍼의 offset이 할당되어 있고, 지정된 소켓 address로 데이터를 전송하기 위한 객체 생성 |
+| DatagramPacket(byte[] buf, int length, SocketAddress address) | 지정된소켓 address로 데이터를 전송하기 위한 객체 생성        |
+
+- `byte[]` : 전송되는 데이터
+- `offset `: 전송되는 byte 배열의 첫 위치
+  - 1일 경우 1번째부터 데이터를 전송
+- `length` : 데이터의 크기
+  - byte 배열의 크기보다 작으면 java.lang.IllegalArgumentException이 발생한다.
+
+#### 주요 메서드
+
+| 메서드               | 설명                                       |
+| -------------------- | ------------------------------------------ |
+| byte[] **getData**() | byte[]로 전송받은 데이터를 리턴            |
+| int **getLength**()  | 전송받은 데이터의 길이를 int 타입으로 리턴 |
+
+
+
+### UDP 통신
+
+```java
+```
+
+
+
+
+
 ## 출처
 
-자바의 신
+- 자바의 신
