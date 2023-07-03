@@ -48,6 +48,8 @@ Java 컴파일러는 타입 소거를 아래와 같이 적용합니다.
 
 아래에서 각각의 규칙을 코드를 통해 설명해보겠습니다.
 
++ unbounded : 제네릭 타입에 제한이 없다.
+
 
 
 ### 첫 번째 규칙
@@ -58,8 +60,8 @@ Java 컴파일러는 타입 소거를 아래와 같이 적용합니다.
 
 ```java
 public class UnboundedClass<T> {
-    public <T> List<T> genericMethod(List<T> list) {
-        return list.stream.collect(Collectors.toList());
+    public <T> T unboundedType(T t) {
+        return t;
     }
 }
 ```
@@ -68,11 +70,13 @@ public class UnboundedClass<T> {
 
 ```java
 public class UnboundedClass {
-    public List<Object> genericMethod(List<Object> list) {
-        return list.stream.collect(Collectors.toList());
+    public Object unboundedType(Object t) {
+        return t;
     }
 }
 ```
+
+T가 Object로 치환됩니다.
 
 
 
@@ -81,9 +85,9 @@ public class UnboundedClass {
 **타입 소거 전(컴파일 시)**
 
 ```java
-public class BoundClass<T extends Building> {
-    public <T extends Building> void genericMethod(T t) {
-        
+public class BoundedClass<T extends Choco> {
+    public <T extends Choco> T boundedType(T t) {
+        return t;
     }
 }
 ```
@@ -91,21 +95,27 @@ public class BoundClass<T extends Building> {
 **타입 소거 후(런타임 시)**
 
 ```java
-public class BoundClass {
-    public void genericMethod(Building t) {
-        
+public class BoundedClass {
+    public Choco boundedType(Choco t) {
+        return t;
     }
 }
 ```
+
+타입 파라미터가 Building의 하위 클래스로 제한되어 있어서 T가 Building으로 치환됩니다.
 
 
 
 ### 두 번째 규칙
 
+**타입 소거 전(컴파일 시)**
+
 ```java
-UnboundedClass<Integer> genericClass = new UnboundedClass<>();
-List<Integer> list = new ArrayList<>();
-genericClass.genericMethod(list);
+UnboundedClass<String> unboundedClass = new UnboundedClass<>();
+String hello = unboundedClass.unboundedType("hello");
+
+BoundedClass<MintChoco> boundedClass = new BoundedClass<>();
+Choco choco = boundedClass.boundedType(new MintChoco());
 ```
 
 개발자가 위와 같이 타입 파라미터를 정해서 제네릭 클래스와 제네릭 메소드를 호출했을 경우
@@ -113,7 +123,22 @@ genericClass.genericMethod(list);
 
 (만약 로타입일 경우는 타입 파라미터가 정해져있지 않아 Object로 변환한 것에서 끝납니다.)
 
+**타입 소거 후(런타임 시)**
 
+```java
+UnboundedClass<String> unboundedClass = new UnboundedClass<>();
+String hello = (String)unboundedClass.unboundedType("hello");	// 타입 캐스팅
+
+BoundedClass<MintChoco> boundedClass = new BoundedClass<>();
+Choco choco = boundedClass.boundedType(new MintChoco());
+```
+
+Unbounded type일 경우에는 
+다운 캐스팅(Object 👉 String)이 되므로 명시적으로 타입 캐스팅을 해주어야 합니다. 
+
+Bounded type은 
+런타임 시 메소드 내에서 타입 파라미터를 Bound Class로 치환하기 때문에 타입 변경이 불필요합니다.
+(만약 메소드 결과를 받는 변수의 타입이 MintChoco(하위 클래스)였을 경우 타입 캐스팅이 발생합니다.)
 
 
 
@@ -134,7 +159,7 @@ public class IntegerStack extends Stack<Integer> {
 }
 ```
 
-Java 컴파일러는 다형성을 지키기 위해 IntegerStack의 `push(Integer)` 메서드와 Stack의 `push(Object)` 메서드 시그니처 사이에 불일치가 없어야 했다. 따라서 컴파일러는 런타임에 해당 제네릭 타입의 타입소거를 위해 Bridge Method를 아래와 같이 만든다.
+Java 컴파일러는 다형성을 지키기 위해 IntegerStack의 `push(Integer)` 메서드와 Stack의 `push(Object)` 메서드 시그니처 사이에 불일치가 없어야 했습니다. 따라서 컴파일러는 런타임에 해당 제네릭 타입의 타입소거를 위해 Bridge Method를 아래와 같이 만들었습니다.
 
 **타입 소거 후(런타임 시)**
 
@@ -152,7 +177,11 @@ public class IntegerStack extends Stack {
 ```
 
 개발자가 IntegerStack의 push() 메소드를 호출하면
- `Integer push(Object value)`  👉 `Integer push(Integer value)` 순서로 호출된다.
+ `Integer push(Object value)`  👉 `Integer push(Integer value)` 순서로 호출됩니다.
+
+
+
+
 
 
 
@@ -161,3 +190,4 @@ public class IntegerStack extends Stack {
 - https://www.baeldung.com/java-generics
 
 - https://jyami.tistory.com/m/99
+- https://woodcock.tistory.com/37
