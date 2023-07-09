@@ -40,8 +40,8 @@ list.add("Type Error");
 
 Java 컴파일러는 타입 소거를 아래와 같이 적용합니다.
 
-> 1. unbounded Type(\<?\>, \<T\>) 는 타입 파라미터(T)나 Object로 변환한다. 
->    - bound Type(\<E extends Comparable\>) 의 경우 Comparable로 변환한다.
+> 1. unbounded Type(\<?\>, \<T\>) 는 Object로 변환하고, 
+>    bound Type(\<E extends Comparable\>) 의 경우 Comparable(Uppder Bounded Wirdcard 클래스)로 변환한다.
 >    - 제네릭 타입을 사용할 수 있는 일반 클래스, 인터페이스, 메소드에만 소거 규칙을 사용한다.
 > 2. 타입 안정성 보존을 위해 필요하다면 type casting을 넣는다.
 > 3. 확장된 제네릭 타입에서 다형성을 보존하기 위해 bridge method를 생성한다.
