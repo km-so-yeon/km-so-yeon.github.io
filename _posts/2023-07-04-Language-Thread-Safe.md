@@ -97,7 +97,7 @@ localStrList는 Stack 내부에서만 사용하기 때문에 동시성을 보장
 
 
 
-1. ThreadLocal 클래스를 사용하는 클래스 구현
+#### 1. ThreadLocal 클래스를 사용하는 클래스 구현
 
 ```java
 public class UserThreadLocal {
@@ -117,15 +117,15 @@ public class UserThreadLocal {
 }
 ```
 
-2. 해당 클래스를 사용하여 Thread-safety하게 구현
+#### 2. 해당 클래스를 사용하여 Thread-safety하게 구현
 
 ```java
 UserThreadLocal userThreadLocal = new UserThreadLocal(5);
 userThreadLocal.printValue();	// 5
 ```
 
-3. ThreadPool을 사용하여 thread를 재활용할 경우 `remove()` **메서드 사용하여 값을 제거**
-   이전에 세팅했던 ThreadLocal의 정보가 남아있어 원치않는 동작을 할 수 있다.
+#### 3. ThreadPool을 사용하여 thread를 재활용할 경우 `remove()` **메서드 사용하여 값을 제거**
+이전에 세팅했던 ThreadLocal의 정보가 남아있어 원치않는 동작을 할 수 있다.
 
 ```java
 userThreadLocal.removeThreadLocalValue();
