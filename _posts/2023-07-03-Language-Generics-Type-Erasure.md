@@ -41,7 +41,7 @@ list.add("Type Error");
 Java 컴파일러는 타입 소거를 아래와 같이 적용합니다.
 
 > 1. unbounded Type(\<?\>, \<T\>) 는 Object로 변환하고, 
->    bound Type(\<E extends Comparable\>) 의 경우 Comparable(Uppder Bounded Wirdcard 클래스)로 변환한다.
+>    bound Type(\<E extends Comparable\>) 의 경우 Comparable(Upper Bounded Wirdcard 클래스)로 변환한다.
 >    - 제네릭 타입을 사용할 수 있는 일반 클래스, 인터페이스, 메소드에만 소거 규칙을 사용한다.
 > 2. 타입 안정성 보존을 위해 필요하다면 type casting을 넣는다.
 > 3. 확장된 제네릭 타입에서 다형성을 보존하기 위해 bridge method를 생성한다.
@@ -85,8 +85,8 @@ T가 Object로 치환됩니다.
 **타입 소거 전(컴파일 시)**
 
 ```java
-public class BoundedClass<T extends Choco> {
-    public <T extends Choco> T boundedType(T t) {
+public class BoundedClass<T extends Animal> {
+    public <T extends Animal> T boundedType(T t) {
         return t;
     }
 }
@@ -96,13 +96,13 @@ public class BoundedClass<T extends Choco> {
 
 ```java
 public class BoundedClass {
-    public Choco boundedType(Choco t) {
+    public Animal boundedType(Animal t) {
         return t;
     }
 }
 ```
 
-타입 파라미터가 Building의 하위 클래스로 제한되어 있어서 T가 Building으로 치환됩니다.
+타입 파라미터가 Animal의 하위 클래스로 제한되어 있어서 T가 Animal으로 치환됩니다.
 
 
 
@@ -114,8 +114,8 @@ public class BoundedClass {
 UnboundedClass<String> unboundedClass = new UnboundedClass<>();
 String hello = unboundedClass.unboundedType("hello");
 
-BoundedClass<MintChoco> boundedClass = new BoundedClass<>();
-Choco choco = boundedClass.boundedType(new MintChoco());
+BoundedClass<Lion> boundedClass = new BoundedClass<>();
+Animal animal = boundedClass.boundedType(new Lion());
 ```
 
 개발자가 위와 같이 타입 파라미터를 정해서 제네릭 클래스와 제네릭 메소드를 호출했을 경우
@@ -129,8 +129,8 @@ Choco choco = boundedClass.boundedType(new MintChoco());
 UnboundedClass<String> unboundedClass = new UnboundedClass<>();
 String hello = (String)unboundedClass.unboundedType("hello");	// 타입 캐스팅
 
-BoundedClass<MintChoco> boundedClass = new BoundedClass<>();
-Choco choco = boundedClass.boundedType(new MintChoco());
+BoundedClass<Lion> boundedClass = new BoundedClass<>();
+Animal animal = boundedClass.boundedType(new Lion());
 ```
 
 Unbounded type일 경우에는 
