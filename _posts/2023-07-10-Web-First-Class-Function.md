@@ -3,10 +3,8 @@ title: "[Web] 일차 함수(First-class function)"
 author: "김소연"
 date: 2023-07-10 19:00:00 -0500
 categories: [Web Application]
-tags: [Javascript]이
+tags: [Javascript]
 ---
-
-
 
 
 
