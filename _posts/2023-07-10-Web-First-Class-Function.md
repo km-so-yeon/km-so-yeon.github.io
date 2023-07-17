@@ -1,5 +1,5 @@
 ---
-title: "[Web] 일차 함수(First-class function)"
+title: "[Web] 일급급 함수(First-class function)"
 author: "김소연"
 date: 2023-07-10 19:00:00 -0500
 categories: [Web Application]
@@ -8,7 +8,7 @@ tags: [Javascript]
 
 
 
-## 일차 함수란?
+## 일급 함수란?
 
 일급 함수(First-class function)는 함수를 일급 시민(First-class citizens)으로 취급한다는 것입니다.
 
@@ -83,14 +83,24 @@ function sayHello() {
 
 
 
-## 결론
+## 자바에서의 함수형 프로그래밍
 
-이처럼 함수를 변수처럼 다룰 수 있다면(일급 함수로 취급하면) 해당 언어는 **함수형 프로그래밍 언어가 가능**해진다고 합니다.
+자바 8부터는 함수형 프로그래밍을 도입하였습니다.
 
-일급 객체, 일급 함수를 사용하는지 여부에 따라 언어들을 아래와 같이 나눌 수 있습니다.
+일반적으로 함수형 프로그래밍에서 아래 3가지 조건을 만족해야 합니다.
 
-- 함수가 일급 시민인 언어 : Javascript, Scala, Go 등
-- 함수가 일급 시민이 아닌 언어 : C, Java 등
+> 1. 순수 함수(Pure function) : 동일한 입력값에 대해 항상 같은 값을 반환한다. 전역 변수를 사용하거나 변경해서 예상치 못한 Side effect를 발생하지 않는다.
+> 2. 고차함수(High Order Function) : 함수를 인자로 받거나 함수를 반환 값으로 이용할 수 있다.
+> 3. 익명함수(Anonymous function) : 이름이 없는 함수를 말하며, 람다식으로 표현되는 함수 구현을 말합니다.
+
+
+
+이러한 함수형 프로그래밍과 관련하여 도입된 기능이 있습니다.
+
+- 람다 (+ Functional Interface)
+- 스트림
+
+이에 대한 자세한 설명은 [이 곳](https://km-so-yeon.github.io/posts/Language-Lambda-Stream/) 에서 확인하실 수 있습니다.
 
 
 
@@ -100,3 +110,5 @@ function sayHello() {
 - [velog.io/@vagabondms/기술-스터디-일급-함수란](https://velog.io/@vagabondms/%EA%B8%B0%EC%88%A0-%EC%8A%A4%ED%84%B0%EB%94%94-%EC%9D%BC%EA%B8%89-%ED%95%A8%EC%88%98%EB%9E%80)
 - https://en.wikipedia.org/wiki/First-class_function
 - https://breakout-theworld.tistory.com/50
+- [warpgate3.tistory.com/entry/자바코드로-보는-함수형-프로그래밍](https://warpgate3.tistory.com/entry/%EC%9E%90%EB%B0%94%EC%BD%94%EB%93%9C%EB%A1%9C-%EB%B3%B4%EB%8A%94-%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-Functional-Programming-in-Java)
+- https://tecoble.techcourse.co.kr/post/2021-09-30-java8-functional-programming/
