@@ -8,7 +8,7 @@ tags: [Cookie, Session]
 
 
 
-HTTP는 Connectionless, Stateless해서 서버는 클라이언트가 누구인지 확인해야 합니다.
+HTTP는 Connectionless, Stateless 하다는 특징이 있습니다.
 
 - Connectionless는 클라이언트가 요청을 한 후 응답을 받으면 연결을 끊어버린다.
 - Stateless는 클라이언트의 상태 정보를 가지지 않는다. 클라이언트와 첫 번째 통신에서 데이터를 주고받았다 해도, 다음에 이전 데이터를 유지하지 않는다.
