@@ -77,21 +77,34 @@ Member member = (Member)constructor.newInstance();
 Class<Member> classMember = Member.Class;
 Member member = new Member("소연", 26);
 
-for(Field field : classMember.getDeclaredFileds()) {
+Field[] fields = classMember.getFields();
+Field[] fields2 = classMember.getDeclaredFileds();
+
+for(Field field : fields) {
     field.setAccessible(true);
     String fieldInfo = field.getType() + ", " + field.getName() + " = " + field.get(member);
     System.out.println(fieldInfo);
 }
 
-Field name = classMember.getDeclaredField("name");
+Field name = classMember.getField("name");
+Field name2 = classMember.getDeclaredField("name");
+
 name.setAccessible(true);
 name.set(member, "Soyeon");
 ```
 
 - 인스턴스 변수 필드 목록 가져오기
-  `Class객체.getDeclaredFields()`
+  - 상속한 변수를 포함해서 접근지정자가 public인 변수들을 가져온다.
+    `Class객체.getFields()`
+  - 해당 클래스에만 선언된 변수들을 접근지정자에 상관없이 가져온다.
+    `Class객체.getDeclaredFields()`
+
 - 인스턴스 변수 필드 가져오기
-  `Class객체.getDeclaredField("필드명")`
+  - 상속한 변수를 포함해서 접근지정자가 public인 변수를 가져온다.
+    `Class객체.getField("필드명")`
+  - 해당 클래스에만 선언된 변수를 접근지정자에 상관없이 가져온다.
+    `Class객체.getDeclaredField("필드명")`
+
 - private 필드일 경우 접근 허용
   `Field객체.setAccessible(true)`
 - 인스턴스 변수의 값 가져오기
@@ -107,13 +120,28 @@ name.set(member, "Soyeon");
 Class<Member> classMember = Member.Class;
 Member member = new Member("소연", 26);
 
-Method sayHello = classMember.getDeclaredMethod("sayHello");
+Method[] memberMethods = classMember.getMethods();
+Method[] memberMethods2 = classMember.getDeclaredMethods();
+
+Method sayHello = classMember.getMethod("sayHello");
+Method sayHello2 = classMember.getDeclaredMethod("sayHello");
+
 sayHello.setAccessible(true);
 sayHello.invoke(member);
 ```
 
+- 인스턴스 변수 필드 목록 가져오기
+  - 상속한 메소드를 포함해서 접근지정자가 public인 메소드들을 가져온다.
+    `Method객체.getMethods()`
+  - 해당 클레스에만 선언된 모든 메소드들을 접근 지정자에 상관없이 가져온다.
+    `Method객체.getDeclaredMethods()`
+
 - 인스턴스 메서드 가져오기
-  `Method객체.getDeclaredMethod(메소드명, 파라미터 타입.Class)`
+  - 상속한 메소드를 포함해서 접근지정자가 public인 메소드만을 가져온다.
+    `Method객체.getMethod(메소드명)`
+  - 해당 클래스에만 선언된 메소드를 접근지정자에 상관없이 가져온다.
+    `Method객체.getDeclaredMethod(메소드명, 파라미터타입.Class)`
+
 - private 메소드일 경우 접근 허용
   `Method객체.setAccessible(true)`
 - 인스턴스 메서드 호출 
@@ -154,3 +182,4 @@ sayHello.invoke(member);
 
 - https://steady-coding.tistory.com/609
 - https://jeongkyun-it.tistory.com/225
+- https://devday.tistory.com/entry/ClassgetMethods-vs-ClassgetDeclaredMethods

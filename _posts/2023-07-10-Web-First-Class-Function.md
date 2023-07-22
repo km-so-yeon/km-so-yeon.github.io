@@ -1,5 +1,5 @@
 ---
-title: "[Web] 일급급 함수(First-class function)"
+title: "[Web] 일급 함수(First-class function)"
 author: "김소연"
 date: 2023-07-10 19:00:00 -0500
 categories: [Web Application]
