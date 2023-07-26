@@ -1,5 +1,5 @@
 ---
-title: "[Web] Reflection"
+title: "[Web] Servlet, JSP 그리고 Spring"
 author: "김소연"
 date: 2023-07-26 19:00:00 -0500
 categories: [Web Application]
@@ -208,6 +208,22 @@ MVC 패턴은 모델 2구조를 사용한다.
 
 **컨트롤러**
 
+```java
+public class ControllerServlet extends HttpServlet {
+    public void doGet(HttpServletRequest reuqest, HttpServletResponse response) throws IOException, ServletException{
+        processRequest(request, response);
+    }
+    
+    public void doPost(HttpServletRequest reuqest, HttpServletResponse response) throws IOException, ServletException{
+        processRequest(request, response);
+    }
+    
+    private void processRequest(HttpServletRequest reuqest, HttpServletResponse response) throws IOException, ServletException{
+		
+    }
+}
+```
+
 - HttpServlet을 상속받은 Controller 클래스
 - Controller 클래스에서 요청 URL과 서블릿 간에 매핑을 입력해주어야 한다. 
 
@@ -226,7 +242,7 @@ MVC 패턴은 모델 2구조를 사용한다.
 
 ## Spring Framework
 
-JSP는 웹 페이지를 구성하는데 사용한다면, Spring은 웹 서비스를 만드는데 전반적인 환경을 제공한다.
+JSP는 웹 페이지를 구성하는데 사용한다면, Spring Framework은 웹 서비스를 만드는데 전반적인 환경을 제공한다.
 
 더 나아가 Spring Boot에서는 관례적인 설정을 자동적으로 처리되도록 하였다.
 
@@ -245,5 +261,5 @@ Sevlet에서부터 JSP, Spring Framework까지 반복된 코드를 없애려고�
 - https://mangkyu.tistory.com/14
 - 최범균의 JSP 2.3 웹 프로그래밍
 - [위키백과 - 자바_서블릿](https://ko.wikipedia.org/wiki/%EC%9E%90%EB%B0%94_%EC%84%9C%EB%B8%94%EB%A6%BF)
-
 - https://cloudstudying.kr/lectures/235
+- 에프랩 멘토링
