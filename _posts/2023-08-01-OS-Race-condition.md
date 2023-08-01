@@ -22,7 +22,7 @@ Race condition이란 공유 자원에 대해 여러 개의 프로세스가 동�
 
 
 
-임계 영역에서는 아래 조건을 충족해야 경쟁 상태가 발생하지 않는다.
+임계 영역에서는 아래 조건을 충족해야 Race condition이 발생하지 않는다.
 
 ### Mutual exclusion(상호배제)
 
@@ -31,22 +31,24 @@ Race condition이란 공유 자원에 대해 여러 개의 프로세스가 동�
 
 ### Progress (진행)
 
-아무도 Critical section에 있지 않다면, 진입하고자 하는 프로세스를 진입하게 해줘야 한다. (deadlock free)
-ciritical section에 아무도 진입하지 못하면 안되며 다음에 어떤 프로세스가 ciritical section에 진입해야 하는지는 유한한 시간에 결정되어야 한다.
+아무도 Critical section에 있지 않다면, 진입하고자 하는 프로세스를 진입하게 해줘야 한다. (Deadlock free)
+Critical section에 아무도 진입하지 못하면 안되며 다음에 어떤 프로세스가 Critical section에 진입해야 하는지는 유한한 시간에 결정되어야 한다.
 
-#### deadlock(교착상태)
+#### Deadlock(교착상태)
 
 위와 같은 상호 배제를 시행하면 추가적인 제어 문제가 발생한다. 그 중 하나가 Deadlock이다.
-프로세스가 각자 프로그램을 실행하기 위해 두 자원 모두에 접근해야 한다고 가정할 때 프로세스는 두 자원 모두를 필요로 하므로 필요한 두 리소스를 사용하여 프로그램을 수행할 때까지 이미 소유한 리소스를 해제하지 않는다. 이러한 상황에서 해당 리소스를 공유하고 있는 모든 프로세스들은 asleep 상태가 되고 리소스를 절대 받을 수 없게 된다. 
+두 개 이상의 작업이 서로 상대방의 작업이 끝나기 만을 기다리고 있기 때문에 결과적으로 아무것도 완료되지 못하는 상태이다.
+
+
 
 ### Bounded Waiting (유한 대기)
 
-프로세스가 ciritical section에 진입하기 위해 무한정으로 기다리는 현상이 발생해서는 안된다. (starvatio free)
+프로세스가 Criitical section에 진입하기 위해 무한정으로 기다리는 현상이 발생해서는 안된다. (Starvation free)
 
-#### starvation(기아상태)
+#### Starvation(기아상태)
 
-상호 배제를 시행했을 때 발생하는 또다른 문제가 starvation이다. 
-프로세스들이 더 이상 진행을 하지 못하고 영구적으로 블록되어 있는 상태이다. 두 개 이상의 작업이 서로 상대방의 작업이 끝나기만을 기다리고 있기 때문에 결과적으로는 아무것도 완료되지 못하는 상태가 되게 된다.
+상호 배제를 시행했을 때 발생하는 또다른 문제가 Starvation이다. 
+여러 프로세스가 자원을 점유할 때 특정 프로세스의 우선 순위가 낮아서 원하는 자원을 계속 할당받지 못하는 상태를 말한다.
 
 
 
@@ -62,6 +64,7 @@ ciritical section에 아무도 진입하지 못하면 안되며 다음에 어떤
 
 ## 출처
 
+- [wiki/교착상태](https://ko.wikipedia.org/wiki/%EA%B5%90%EC%B0%A9_%EC%83%81%ED%83%9C)
 - https://iredays.tistory.com/m/125
-- https://velog.io/@klloo/운영체제-경쟁-상태-Race-Condition
+- [velog.io/@klloo](https://velog.io/@klloo/운영체제-경쟁-상태-Race-Condition)
 - https://charles098.tistory.com/88
