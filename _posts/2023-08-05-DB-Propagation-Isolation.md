@@ -78,23 +78,31 @@ public int method() throws Exception {
 
 ## isolation
 
+흔히 얘기하는 ACID(Atomicity, Consistency, Isolation, Durability) 특성 중 하나인 isolation이다.
+
 '격리'라는 뜻으로, 해당 속성을 통해 격리 수준을 지정한다.
 
-격리는 동시에 여러 개의 트랜잭션에 의한 변경사항을 어떻게 적용할지에 대한 설정이다.
+격리는 **동시에 여러 개의 트랜잭션에 의한 변경사항을 어떻게 적용할지에 대한 옵션**이다.
 
 
 
-### 동시에 발생하는 트랜잭션에 의해 발생할 수 있는 문제
+각각의 isolation level은 아래와 같은 동시성 문제를 0개 혹은 그 이상 예방할 수 있다.
+
+### 동시성 문제
+
+동시에 발생하는 트랜잭션에 의해 발생할 수 있는 문제를 말한다.
+
+
 
 #### Dirty Read
 
-변경사항이 반영되지 않은 값을 다른 트랜잭션에서 읽도록 허용할 경우 발생하는 데이터 불일치
+변경사항이 반영되지 않은 값을 다른 트랜잭션에서 읽도록 허용할 경우 발생하는 데이터 불일치이다.
 
 
 
 #### Non-Repeatable Read
 
-한 트랜잭션 내에서 값을 재조회할 때, 동시성 문제로 인해 같은 쿼리가 다른 결과를 반환
+한 트랜잭션 내에서 값을 재조회할 때, 동시성 문제로 인해 같은 쿼리가 다른 값을 반환한다.
 
 즉, 트랜잭션이 끝나기 전에 수정사항이 반영되어, 트랜잭션 내에서 쿼리 결과가 일관성을 가지지 못하는 경우
 
@@ -104,7 +112,7 @@ public int method() throws Exception {
 
 #### Phantom Read
 
-외부에서 수행되는 입력/삭제 작업으로 인해 트랜잭션 내에서의 동일한 쿼리가 다른 값을 반환
+다른 트랜잭션에서의 입력 및 삭제 작업을 했을 때, 동일한 쿼리를 재실행하면 다른 행을 반환한다.
 
 - 기존 조회결과에 있던 게 없어지거나, 없던 게 생기게된다.
 
@@ -116,9 +124,9 @@ public int method() throws Exception {
 | --------------------- | ------------------------------------------------------------ |
 | DEFAULT<br />(기본값) | 별도의 값을 설정하지 않는 경우, DBMS의 Isolation level을 따름<br />- DB를 변경하게 되는 경우 주의가 필요함 |
 | READ_UNCOMMITED       | 가장 낮은 Isolation level<br />- COMMIT 되지 않은 데이터, 트랜잭션 처리 중인 데이터에 대한 읽기를 허용<br />- 동시성 부작용 모두 발생(Dirty Read, Non-Repeatable Read, Phantom Read)<br />- Postgres은 READ_UNCOMMITED를 허용하지 않고, READ_COMMITED을 사용하도록 함<br />_ Oracle은 READ_UNCOMMITED를 지원하지 않거나 허용하지 않음 |
-| READ_COMMITED         | 트랜잭션에서 COMMIT된 확정 데이터만 읽기 허용<br />- 동시성 부작용 중 Dirty Read를 방지한다.<br />- Postgres, Oracle, SQL Server의 기본 수준 |
-| REPEATABLE_READ       | 트랜잭션이 완료될 때까지 SELECT문이 사용하는 모든 데이터에 Shared Lock 처리<br />- 다른 사용자는 그 영역에 해당하는 데이터에 대한 수정이 불가능하다.<br />- 동시성 부작용 중 Dirty Read, Non-Repeatable REad 방지 |
-| SERIALIZABLE          | 최고 수준의 Isolation level<br />- 동시성 부작용 모두 방지 (Dirty Read, Non-Repeatable Read, Phantom Read)<br />- 동시 호출을 순차적으로 실행하도록 제한하는 설정이므로, 성능 저하의 우려가 있음 |
+| READ_COMMITED         | 트랜잭션에서 COMMIT된 확정 데이터만 읽기 허용<br />- 동시성 부작용 중 **Dirty Read를 방지**<br />- Postgres, Oracle, SQL Server의 기본 수준 |
+| REPEATABLE_READ       | 트랜잭션이 완료될 때까지 SELECT문이 사용하는 모든 데이터에 Shared Lock 처리<br />- 다른 사용자는 그 영역에 해당하는 데이터에 대한 수정이 불가능하다.<br />- 동시성 부작용 중 **Dirty Read, Non-Repeatable Read 방지**<br /><br />- 선행 트랜잭션이 읽은 데이터는 트랜잭션이 종료될 때까지 후행 트랜잭션이 갱신하거나 삭제하는 것이 불가능하기 때문에 같은 데이터를 두 번 쿼리했을 때 일관성 있는 결과를 리턴한다.<br /><br />- MySQL의 기본수준이고, Oracle은 REPEATABLE_READ를 지원하지 않는다. |
+| SERIALIZABLE          | 최고 수준의 Isolation level<br />- **동시성 부작용 모두 방지** (Dirty Read, Non-Repeatable Read, Phantom Read)<br />- 동시 호출을 순차적으로 실행하도록 제한하는 설정이므로, 성능 저하의 우려가 있음<br /><br />- 데이터의 일관성 및 동시성을 위해 MVCC(Multi Version Concurrency Control)을 사용하지 않는다. (MVCC는 다중 사용자 데이터베이스 성능을 위한 기술이며, 데이터 조회 시 LOCK을 사용하지 않고 데이터의 버전을 관리해 데이터의 일관성 및 동시성을 높이는 기술이다.) |
 
 
 
