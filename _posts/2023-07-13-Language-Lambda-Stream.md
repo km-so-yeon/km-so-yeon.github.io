@@ -84,9 +84,9 @@ private void calculateLambda() {
 
 
 
-### Functional(기능적) 인터페이스
+### Functional 인터페이스(기능적, 함수형)
 
-기능적 인터페이스는 하나의 메소드만 선언되어 있는 것을 의미한다.
+Functional 인터페이스는 하나의 메소드만 선언되어 있는 것을 의미한다.
 
 ```java
 @FunctionalInterface
@@ -122,58 +122,7 @@ Java 8에서 추가된 것으로, 람다 표현식이 단 하나의 메소드만
 | 특정 유형의 임의의 객체에 대한 인스턴스 메소드 참조 | ContainingType::methodName           |
 | 생성자 참조                                         | ClassName::new                       |
 
-
-
-**static 메소드 참조**
-
-```java
-DoubleUnaryOperator oper;
-
-oper = (n) -> Math.abs(n);	// 람다 표현식
-System.out.println(oper.applyAsDouble(-5));	// 5.0
-
-oper = Math::abs;	// 메소드 참조
-System.out.println(oper.applyAsDouble(-5));	// 5.0
-```
-
-
-
-**특정 객체의 인스턴스 메소드 참조**
-
-```java
-MyClass obj = new MyClass;
-Function<String, Boolean> func = (a) -> obj.equals(a); // 람다 표현식
-Function<String, Boolean> func = obj::equals(a);	// 메소드 참조
-```
-
-
-
-**특정 유형의 임의의 객체에 대한 인스턴스 메소드 참조**
-
-```java
-List<String> words = Arrays.asList("AB", "CD", "EF");
-
-// 람다 표현식
-words.stream().map(word -> word.toLowerCase()).forEach(word -> System.out.println(word));
-
-// 메소드 참조
-words.stream().map(String::toLowerCase).forEach(System.out::println);
-```
-
-- `map(String::toLowerCase)` : 임의의 객체 참조
-  - 임의 객체(arbitary object)라는 용어가 사용된 이유는, 메소드 참조가 실행될 때마다 인자로 넘어온 값이 다를 수 있기 때문이다.
-- `forEach(System.out::println)` : 인스턴스 메소드 참조
-
-
-
-**생성자 참조**
-
-```java
-(a) -> {return new Object(a);}	// 람다 표현식
-Object::new;	// 메소드 참조
-```
-
-
+메소드 참조에 대한 자세한 내용은 '메소드 레퍼런스(Method Reference, 메소드 참조)' 글에서 따로 정리하였습니다.
 
 
 
@@ -379,6 +328,15 @@ try{
 
 
 
+## 자바 8의 가장 큰 변화
+> 인터페이스의 스펙 변화 👉 람다 가능 👉 강화된 컬렉션 API 사용 👉 함수형 프로그래밍 가능
+
+  - 인터페이스에 디폴트 메서드와 정적 메서드를 추가하는 결정을 내린 이유
+    - Collection의 슈퍼 인터페이스인 Iterable 인터페이스에 많은 변화가 필요했다. (forEach 도입 등)
+	- 이전 JDK를 기반으로 작성된 프로그램도 자바8JVM에서 구동될 수 있도록 새로운 추상 인스턴스 메서드를 추가하는 것이 아닌 디폴트 메서드라고 하는 새로운 개념을 추가한 것이다.
+
+
+
 ## 결론
 
 이처럼 람다와 스트림을 함께 사용해서 데이터 프로세싱을 효율적으로 할 수 있고, 코드가 간결해진다.
@@ -394,3 +352,4 @@ try{
 - https://m.blog.naver.com/tmondev/220945933678
 - [TCP school - 메소드 참조](http://www.tcpschool.com/java/java_lambda_reference)
 - https://gom20.tistory.com/217
+- 스프링 입문을 위한 자바 객체 지향의 원리와 이해
