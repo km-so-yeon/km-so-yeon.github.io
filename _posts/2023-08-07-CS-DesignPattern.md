@@ -106,7 +106,7 @@ public class ClientWithAdapter {
 
 ### 구현 방법
 
-![servlet4](/assets/img/servlet4.jpg){:width="80%" height="80%"}
+![designPattern](/assets/img/designPattern.jpg){:width="80%" height="80%"}
 
 - 대리자는 실제 서비스와 같은 이름의 메서드를 구현한다. 이 때 인터페이스를 사용한다.
 - 대리자는 실제 서비스에 대한 참조 변수를 갖는다. (합성)
