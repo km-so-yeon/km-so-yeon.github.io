@@ -158,11 +158,38 @@ tags: [CS]
 
 ### 프로토타입(Prototype)
 
-생성할 객체의 종류를 명시하는데 원형이 되는 예시물을 이용하고 새로운 객체를 이 원형들을 복사함으로써 생성하는 패턴입니다.
+![designPattern5](/assets/img/designPattern5.png){:width="80%" height="80%"}
+
+기존 객체를 응용하여 새로운 객체를 만드는 방법이다.
 
 
 
+#### 사용
 
+객체를 생성하는 데 비용(시간 혹은 메모리)가 많이 들고, 비슷한 객체가 이미 있는 경우에 사용한다.
+
+**예시**
+
+- ModelMapper : 객체의 값들을 다른 객체로 복사해주는 라이브러리
+
+  ```java
+  MyDataRepository myDataRepository = new MyDataRepository();
+  MyData myData = new MyData(myDataRepository);
+  
+  ModelMapper modelMapper = new ModelMapper();
+  MyDataMap map = modelMapper.map(myData, MyDataMap.class);
+  ```
+
+  
+
+#### 장/단점
+
+- 장점
+  - 복잡한 객체를 만드는 과정을 숨길 수 있다.
+  - 기존 객체를 복제하는 과정이 새 인스턴스를 만드는 것보다 비용(시간 혹은 메모리)적인 면에서 효율적일 수 있다.
+  - 추상적인 타입을 리턴할 수 있다.
+- 단점
+  - 복잡한 객체를 만드는 과정 자체가 복잡해질 수 있다. (특히 순환 참조가 있는 경우)
 
 
 
@@ -175,3 +202,4 @@ tags: [CS]
 - https://bcp0109.tistory.com/367
 - https://devowen.com/326
 - https://sudo-minz.tistory.com/133
+- https://kingchan223.tistory.com/295
