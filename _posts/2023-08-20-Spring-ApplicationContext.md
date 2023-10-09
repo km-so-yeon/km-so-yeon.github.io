@@ -120,7 +120,7 @@ ApplicationContext가 구현하고 있는 기능 중 하나이다.
 2. 이벤트 발생시키기
 - publishEvent.publishEvent()
 3. 이벤트 처리하기
-- ApplicationListener<이벤트> 를 구현한 클래스를 만들어서 빈으로 등록하기
+- ApplicationListener\<이벤트\> 를 구현한 클래스를 만들어서 빈으로 등록하기
 - 스프링 4.2부터는 @EventListener 를 사용해서 빈의 메소드에 사용할 수 있다.
 - 기본적으로 synchronized
 
