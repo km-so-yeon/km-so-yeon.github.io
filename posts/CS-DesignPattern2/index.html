@@ -1,0 +1,249 @@
+<!DOCTYPE html><html lang="en" ><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><meta name="day-prompt" content="days ago"><meta name="hour-prompt" content="hours ago"><meta name="minute-prompt" content="minutes ago"><meta name="justnow-prompt" content="just now"><meta name="generator" content="Jekyll v4.3.2" /><meta property="og:title" content="[CS] Design pattern 디자인패턴2" /><meta name="author" content="김소연" /><meta property="og:locale" content="en" /><meta name="description" content="지난 글에 이어서 다른 디자인 패턴들을 알아보겠습니다." /><meta property="og:description" content="지난 글에 이어서 다른 디자인 패턴들을 알아보겠습니다." /><link rel="canonical" href="https://km-so-yeon.github.io/posts/CS-DesignPattern2/" /><meta property="og:url" content="https://km-so-yeon.github.io/posts/CS-DesignPattern2/" /><meta property="og:site_name" content="포스트잇" /><meta property="og:type" content="article" /><meta property="article:published_time" content="2023-08-09T09:00:00+09:00" /><meta name="twitter:card" content="summary" /><meta property="twitter:title" content="[CS] Design pattern 디자인패턴2" /><meta name="twitter:site" content="@twitter_username" /><meta name="twitter:creator" content="@김소연" /><meta name="google-site-verification" content="google_meta_tag_verification" /> <script type="application/ld+json"> {"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"김소연"},"dateModified":"2023-08-15T23:30:54+09:00","datePublished":"2023-08-09T09:00:00+09:00","description":"지난 글에 이어서 다른 디자인 패턴들을 알아보겠습니다.","headline":"[CS] Design pattern 디자인패턴2","mainEntityOfPage":{"@type":"WebPage","@id":"https://km-so-yeon.github.io/posts/CS-DesignPattern2/"},"url":"https://km-so-yeon.github.io/posts/CS-DesignPattern2/"}</script><title>[CS] Design pattern 디자인패턴2 | 포스트잇</title><link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicons/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicons/favicon-16x16.png"><link rel="manifest" href="/assets/img/favicons/site.webmanifest"><link rel="shortcut icon" href="/assets/img/favicons/favicon.ico"><meta name="apple-mobile-web-app-title" content="포스트잇"><meta name="application-name" content="포스트잇"><meta name="msapplication-TileColor" content="#da532c"><meta name="msapplication-config" content="/assets/img/favicons/browserconfig.xml"><meta name="theme-color" content="#ffffff"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"><link rel="dns-prefetch" href="https://fonts.gstatic.com"><link rel="preconnect" href="https://www.google-analytics.com" crossorigin="use-credentials"><link rel="dns-prefetch" href="https://www.google-analytics.com"><link rel="preconnect" href="https://www.googletagmanager.com" crossorigin="anonymous"><link rel="dns-prefetch" href="https://www.googletagmanager.com"><link rel="preconnect" href="https://cdn.jsdelivr.net"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.11.2/css/all.min.css"><link rel="stylesheet" href="/assets/css/style.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@1.0.1/dist/bootstrap-toc.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/magnific-popup@1.1.0/dist/magnific-popup.min.css"> <script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script><body data-spy="scroll" data-target="#toc"><div id="sidebar" class="d-flex flex-column align-items-end" lang="en"><div class="profile-wrapper text-center"><div id="avatar"> <a href="/" alt="avatar" class="mx-auto"> <img src="/assets/img/picture.jpg" alt="avatar" onerror="this.style.display='none'"> </a></div><div class="site-title mt-3"> <a href="/">포스트잇</a></div><div class="site-subtitle font-italic">오늘보다 나은</div></div><ul class="w-100"><li class="nav-item"> <a href="/" class="nav-link"> <i class="fa-fw fas fa-home ml-xl-3 mr-xl-3 unloaded"></i> <span>HOME</span> </a><li class="nav-item"> <a href="/categories/" class="nav-link"> <i class="fa-fw fas fa-stream ml-xl-3 mr-xl-3 unloaded"></i> <span>CATEGORIES</span> </a><li class="nav-item"> <a href="/tags/" class="nav-link"> <i class="fa-fw fas fa-tags ml-xl-3 mr-xl-3 unloaded"></i> <span>TAGS</span> </a><li class="nav-item"> <a href="/archives/" class="nav-link"> <i class="fa-fw fas fa-archive ml-xl-3 mr-xl-3 unloaded"></i> <span>ARCHIVES</span> </a><li class="nav-item"> <a href="/about/" class="nav-link"> <i class="fa-fw fas fa-info ml-xl-3 mr-xl-3 unloaded"></i> <span>ABOUT</span> </a></ul><div class="sidebar-bottom mt-auto d-flex flex-wrap justify-content-center"> <a href="https://github.com/km-so-yeon" aria-label="github" class="order-3" target="_blank" rel="noopener"> <i class="fab fa-github-alt"></i> </a> <a href="https://twitter.com/twitter_username" aria-label="twitter" class="order-4" target="_blank" rel="noopener"> <i class="fab fa-twitter"></i> </a> <a href=" javascript:location.href = 'mailto:' + ['example','doamin.com'].join('@')" aria-label="email" class="order-5" > <i class="fas fa-envelope"></i> </a> <a href="/feed.xml" aria-label="rss" class="order-6" > <i class="fas fa-rss"></i> </a> <span class="icon-border order-2"></span> <span id="mode-toggle-wrapper" class="order-1"> <i class="mode-toggle fas fa-adjust"></i> <script type="text/javascript"> class ModeToggle { static get MODE_KEY() { return "mode"; } static get DARK_MODE() { return "dark"; } static get LIGHT_MODE() { return "light"; } constructor() { if (this.hasMode) { if (this.isDarkMode) { if (!this.isSysDarkPrefer) { this.setDark(); } } else { if (this.isSysDarkPrefer) { this.setLight(); } } } var self = this; /* always follow the system prefers */ this.sysDarkPrefers.addListener(function() { if (self.hasMode) { if (self.isDarkMode) { if (!self.isSysDarkPrefer) { self.setDark(); } } else { if (self.isSysDarkPrefer) { self.setLight(); } } self.clearMode(); } self.updateMermaid(); }); } /* constructor() */ setDark() { $('html').attr(ModeToggle.MODE_KEY, ModeToggle.DARK_MODE); sessionStorage.setItem(ModeToggle.MODE_KEY, ModeToggle.DARK_MODE); } setLight() { $('html').attr(ModeToggle.MODE_KEY, ModeToggle.LIGHT_MODE); sessionStorage.setItem(ModeToggle.MODE_KEY, ModeToggle.LIGHT_MODE); } clearMode() { $('html').removeAttr(ModeToggle.MODE_KEY); sessionStorage.removeItem(ModeToggle.MODE_KEY); } get sysDarkPrefers() { return window.matchMedia("(prefers-color-scheme: dark)"); } get isSysDarkPrefer() { return this.sysDarkPrefers.matches; } get isDarkMode() { return this.mode == ModeToggle.DARK_MODE; } get isLightMode() { return this.mode == ModeToggle.LIGHT_MODE; } get hasMode() { return this.mode != null; } get mode() { return sessionStorage.getItem(ModeToggle.MODE_KEY); } /* get the current mode on screen */ get modeStatus() { if (this.isDarkMode || (!this.hasMode && this.isSysDarkPrefer) ) { return ModeToggle.DARK_MODE; } else { return ModeToggle.LIGHT_MODE; } } updateMermaid() { if (typeof mermaid !== "undefined") { let expectedTheme = (this.modeStatus === ModeToggle.DARK_MODE? "dark" : "default"); let config = { theme: expectedTheme }; /* re-render the SVG › <https://github.com/mermaid-js/mermaid/issues/311#issuecomment-332557344> */ $(".mermaid").each(function() { let svgCode = $(this).prev().children().html(); $(this).removeAttr("data-processed"); $(this).html(svgCode); }); mermaid.initialize(config); mermaid.init(undefined, ".mermaid"); } } flipMode() { if (this.hasMode) { if (this.isSysDarkPrefer) { if (this.isLightMode) { this.clearMode(); } else { this.setLight(); } } else { if (this.isDarkMode) { this.clearMode(); } else { this.setDark(); } } } else { if (this.isSysDarkPrefer) { this.setLight(); } else { this.setDark(); } } this.updateMermaid(); } /* flipMode() */ } /* ModeToggle */ let toggle = new ModeToggle(); $(".mode-toggle").click(function() { toggle.flipMode(); }); </script> </span></div></div><div id="topbar-wrapper" class="row justify-content-center topbar-down"><div id="topbar" class="col-11 d-flex h-100 align-items-center justify-content-between"> <span id="breadcrumb"> <span> <a href="/"> Home </a> </span> <span>[CS] Design pattern 디자인패턴2</span> </span> <i id="sidebar-trigger" class="fas fa-bars fa-fw"></i><div id="topbar-title"> Post</div><i id="search-trigger" class="fas fa-search fa-fw"></i> <span id="search-wrapper" class="align-items-center"> <i class="fas fa-search fa-fw"></i> <input class="form-control" id="search-input" type="search" aria-label="search" autocomplete="off" placeholder="Search..."> <i class="fa fa-times-circle fa-fw" id="search-cleaner"></i> </span> <span id="search-cancel" >Cancel</span></div></div><div id="main-wrapper"><div id="main"><div class="row"><div id="post-wrapper" class="col-12 col-lg-11 col-xl-8"><div class="post pl-1 pr-1 pl-sm-2 pr-sm-2 pl-md-4 pr-md-4"><h1 data-toc-skip>[CS] Design pattern 디자인패턴2</h1><div class="post-meta text-muted d-flex flex-column"><div> <span class="semi-bold"> 김소연 </span> on <span class="timeago " data-toggle="tooltip" data-placement="bottom" title="Wed, Aug 9, 2023, 9:00 AM +0900" >Aug 9<i class="unloaded">2023-08-09T09:00:00+09:00</i> </span></div><div> <span> Updated <span class="timeago lastmod" data-toggle="tooltip" data-placement="bottom" title="Tue, Aug 15, 2023, 11:30 PM +0900" >Aug 15<i class="unloaded">2023-08-15T23:30:54+09:00</i> </span> </span> <span class="readtime" data-toggle="tooltip" data-placement="bottom" title="1678 words">9 min read</span></div></div><div class="post-content"><p>지난 글에 이어서 다른 디자인 패턴들을 알아보겠습니다.</p><h2 id="템플릿-메서드-패턴template-method-pattern">템플릿 메서드 패턴(Template Method Pattern)</h2><p>상위클래스의 템플릿 메서드에서 하위 클래스에서 오버라이딩한 메서드를 호출하는 패턴</p><h3 id="구현-방법">구현 방법</h3><ul><li>상위 클래스에서 공통 로직을 수행하는 템플릿 메서드<li>하위 클래스에 오버라이딩을 강제하는 추상 메서드 또는 선택적으로 오버라이딩할 수 있는 훅(Hook) 메서드를 두는 패턴</ul><div class="language-java highlighter-rouge"><div class="code-header" text-data="java"><button data-original-title="Copied!"><i class="far fa-clone"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+</pre><td class="rouge-code"><pre><span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">Animal</span> <span class="o">{</span>
+   <span class="c1">// 템플릿 메서드</span>
+   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">playWithOwner</span><span class="o">()</span> <span class="o">{</span>
+      <span class="n">play</span><span class="o">();</span>   <span class="c1">// 추상메서드</span>
+      <span class="n">runSomething</span><span class="o">();</span>   <span class="c1">// 훅 메서드</span>
+   <span class="o">}</span>
+
+   <span class="c1">// 추상 메서드</span>
+   <span class="kd">abstract</span> <span class="kt">void</span> <span class="nf">play</span><span class="o">();</span>
+
+   <span class="c1">// Hook(갈고리) 메서드</span>
+   <span class="kt">void</span> <span class="nf">runSomething</span><span class="o">()</span> <span class="o">{</span>
+      <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"runSomething()..."</span><span class="o">);</span>
+   <span class="o">}</span>
+<span class="o">}</span>
+</pre></table></code></div></div><h4 id="템플릿-메서드">템플릿 메서드</h4><ul><li>공통 로직을 수행<li>로직 중에 하위 클래스에서 오버라이딩한 추상메서드/훅 메서드를 호출</ul><h4 id="추상-메서드">추상 메서드</h4><ul><li>템플릿 메서드에서 호출한다.<li>하위 클래스가 <strong>반드시 오버라이딩</strong>해야 한다.</ul><h4 id="훅-메서드">훅 메서드</h4><ul><li>템플릿 메서드에서 호출한다.<li>하위 클래스에서 <strong>선택적으로 오버라이딩</strong> 한다.</ul><h3 id="충족하는-설계원칙">충족하는 설계원칙</h3><ul><li>의존 역전 법칙(DIP)을 활용하고 있다.</ul><h2 id="팩토리-메서드-패턴factory-method-pattern">팩토리 메서드 패턴(Factory Method Pattern)</h2><p>오버라이드된 메서드가 객체를 반환하는 패턴</p><ul><li>팩토리 : 공장이라는 뜻<li>객체 지향에서 팩토리는 객체를 생성한다.<li>팩토리 메서드는 객체를 생성하고 반환하는 메서드를 말한다.<li>팩토리 메서드 패턴은 하위클래스에서 팩토리 메서드를 오버라이딩해서 객체를 반환하게 하는 것이다.</ul><h3 id="구현-방법-1">구현 방법</h3><div class="language-java highlighter-rouge"><div class="code-header" text-data="java"><button data-original-title="Copied!"><i class="far fa-clone"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre><td class="rouge-code"><pre><span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">Animal</span> <span class="o">{</span>
+   <span class="c1">// 추상 팩터리 메서드</span>
+   <span class="kd">abstract</span> <span class="nc">AnimalToy</span> <span class="nf">getToy</span><span class="o">();</span>
+<span class="o">}</span>
+</pre></table></code></div></div><div class="language-java highlighter-rouge"><div class="code-header" text-data="java"><button data-original-title="Copied!"><i class="far fa-clone"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre><td class="rouge-code"><pre><span class="c1">// 팩터리 메서드가 생성할 객체의 상위 클래스</span>
+<span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">AnimalToy</span> <span class="o">{</span>
+   <span class="kd">abstract</span> <span class="kt">void</span> <span class="nf">identify</span><span class="o">();</span>
+<span class="o">}</span>
+</pre></table></code></div></div><div class="language-java highlighter-rouge"><div class="code-header" text-data="java"><button data-original-title="Copied!"><i class="far fa-clone"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre><td class="rouge-code"><pre><span class="c1">// 팩터리 메서드가 생성할 객체</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">DogToy</span> <span class="kd">extends</span> <span class="nc">AnimalToy</span> <span class="o">{</span>
+   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">identify</span><span class="o">()</span> <span class="o">{</span>
+      <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"DogToy"</span><span class="o">);</span>
+   <span class="o">}</span>
+<span class="o">}</span>
+</pre></table></code></div></div><div class="language-java highlighter-rouge"><div class="code-header" text-data="java"><button data-original-title="Copied!"><i class="far fa-clone"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre><td class="rouge-code"><pre><span class="c1">// 팩터리 메서드가 생성할 객체</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">CatToy</span> <span class="kd">extends</span> <span class="nc">AnimalToy</span> <span class="o">{</span>
+   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">identify</span><span class="o">()</span> <span class="o">{</span>
+      <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"CatToy"</span><span class="o">);</span>
+   <span class="o">}</span>
+<span class="o">}</span>
+</pre></table></code></div></div><div class="language-java highlighter-rouge"><div class="code-header" text-data="java"><button data-original-title="Copied!"><i class="far fa-clone"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre><td class="rouge-code"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Dog</span> <span class="kd">extends</span> <span class="nc">Animal</span> <span class="o">{</span>
+   <span class="c1">// 추상 팩토리 메서드를 오버라이딩한다.</span>
+   <span class="nd">@Override</span>
+   <span class="nc">AnimalToy</span> <span class="nf">getToy</span><span class="o">()</span> <span class="o">{</span>
+      <span class="k">return</span> <span class="k">new</span> <span class="nf">DogToy</span><span class="o">();</span>
+   <span class="o">}</span>
+<span class="o">}</span>
+</pre></table></code></div></div><div class="language-java highlighter-rouge"><div class="code-header" text-data="java"><button data-original-title="Copied!"><i class="far fa-clone"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre><td class="rouge-code"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Cat</span> <span class="kd">extends</span> <span class="nc">Animal</span> <span class="o">{</span>
+   <span class="c1">// 추상 팩토리 메서드를 오버라이딩한다.</span>
+   <span class="nd">@Override</span>
+   <span class="nc">AnimalToy</span> <span class="nf">getToy</span><span class="o">()</span> <span class="o">{</span>
+      <span class="k">return</span> <span class="k">new</span> <span class="nf">CatToy</span><span class="o">();</span>
+   <span class="o">}</span>
+<span class="o">}</span>
+</pre></table></code></div></div><div class="language-java highlighter-rouge"><div class="code-header" text-data="java"><button data-original-title="Copied!"><i class="far fa-clone"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre><td class="rouge-code"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">CleintWithFactody</span> <span class="o">{</span>
+   <span class="c1">// 팩토리 메서드를 보유한 객체를 생성한다.</span>
+   <span class="nc">Animal</span> <span class="n">doggy</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Dog</span><span class="o">();</span>
+   <span class="nc">Animal</span> <span class="n">kitty</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Cat</span><span class="o">();</span>
+
+   <span class="c1">// 팩토리 메서드가 객체를 반환한다.</span>
+   <span class="nc">AnimalToy</span> <span class="n">doggyToy</span> <span class="o">=</span> <span class="n">doggy</span><span class="o">.</span><span class="na">getToy</span><span class="o">();</span>
+   <span class="nc">AnimalToy</span> <span class="n">kittyToy</span> <span class="o">=</span> <span class="n">kitty</span><span class="o">.</span><span class="na">getToy</span><span class="o">();</span>
+
+   <span class="c1">// 팩토리 메소드가 반환한 객체들을 사용한다.</span>
+   <span class="n">doggyToy</span><span class="o">.</span><span class="na">identify</span><span class="o">();</span>
+   <span class="n">kittyToy</span><span class="o">.</span><span class="na">identify</span><span class="o">();</span>
+<span class="o">}</span>
+</pre></table></code></div></div><h3 id="충족하는-설계원칙-1">충족하는 설계원칙</h3><ul><li>의존 역전 원칙(DIP) : 클래스 다이어그램을 보면 의존 역전 법칙을 활용하고 있다.</ul><h2 id="전략-패턴strategy-pattern">전략 패턴(Strategy Pattern)</h2><p>클라이언트가 전략을 생성해 전략을 실행할 컨텍스트에 주입하는 패턴</p><h3 id="구성-요소">구성 요소</h3><ul><li>전략 메서드를 가진 전략 객체<li>전략 객체를 사용하는 컨텍스트(전략 객체의 사용자/소비자)<li>전략 객체를 생성에 컨텍스트에 주입하는 클라이언트(제3자, 전략 객체의 공급자)</ul><h3 id="구현방법">구현방법</h3><ol><li>다양한 전략을 공통된 방식으로 사용하기 위해 인터페이스를 정의한다.<li>인터페이스를 구현하여 다양한 전략 클래스를 만들어낸다.<li>전략을 사용할 컨텍스트 클래스를 구현한다.<li>클라이언트는 다양한 전략 중 하나를 선택해 생성한 후 컨텍스트에 주입한다.</ol><div class="language-java highlighter-rouge"><div class="code-header" text-data="java"><button data-original-title="Copied!"><i class="far fa-clone"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre><td class="rouge-code"><pre><span class="c1">// 전략 인터페이스</span>
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Strategy</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">void</span> <span class="nf">runStrategy</span><span class="o">();</span>
+<span class="o">}</span>
+</pre></table></code></div></div><div class="language-java highlighter-rouge"><div class="code-header" text-data="java"><button data-original-title="Copied!"><i class="far fa-clone"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre><td class="rouge-code"><pre><span class="c1">// 전략 인터페이스를 구현하는 클래스</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">StrategyGun</span> <span class="kd">implements</span> <span class="nc">Strategy</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">runStrategy</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Gun"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></table></code></div></div><div class="language-java highlighter-rouge"><div class="code-header" text-data="java"><button data-original-title="Copied!"><i class="far fa-clone"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre><td class="rouge-code"><pre><span class="c1">// 전략 인터페이스를 구현하는 클래스2</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">StrategySword</span> <span class="kd">implements</span> <span class="nc">Strategy</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">runStrategy</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Sword"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></table></code></div></div><div class="language-java highlighter-rouge"><div class="code-header" text-data="java"><button data-original-title="Copied!"><i class="far fa-clone"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre><td class="rouge-code"><pre><span class="c1">// 전략을 사용할 컨텍스트 클래스</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Soldier</span> <span class="o">{</span>
+    <span class="kt">void</span> <span class="nf">runContext</span><span class="o">(</span><span class="nc">Strategy</span> <span class="n">strategy</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"전투 시작"</span><span class="o">);</span>
+        <span class="n">strategy</span><span class="o">.</span><span class="na">runStrategy</span><span class="o">();</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"전투 종료"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></table></code></div></div><div class="language-java highlighter-rouge"><div class="code-header" text-data="java"><button data-original-title="Copied!"><i class="far fa-clone"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+</pre><td class="rouge-code"><pre><span class="c1">// 클라이언트</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Client</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">Strategy</span> <span class="n">strategy</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="nc">Soldier</span> <span class="n">rambo</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Soldier</span><span class="o">();</span>
+        
+		<span class="c1">// 총을 군인 람보에게 전달해서 전투를 수행하게한다.</span>
+        <span class="n">strategy</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">StrategyGun</span><span class="o">();</span>
+        <span class="n">rambo</span><span class="o">.</span><span class="na">runContext</span><span class="o">(</span><span class="n">strategy</span><span class="o">);</span>
+
+        <span class="c1">// 검을 군인 람보에게 전달해서 전투를 수행하게한다.</span>
+        <span class="n">strategy</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">StrategySword</span><span class="o">();</span>
+        <span class="n">rambo</span><span class="o">.</span><span class="na">runContext</span><span class="o">(</span><span class="n">strategy</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></table></code></div></div><h3 id="특징">특징</h3><ul><li>다양한 문제상황의 해결책으로 사용된다.<li>템플릿 메서드 패턴과 유사하다. 같은 문제의 해결책으로 사용할 수 있다. 템플릿 메서드 패턴은 상속을 이용하고, 전략 패턴은 객체 주입을 이용하여 문제를 해결한다.<li>자바는 단일 상속만 가능하므로 상속이라는 제한이 있는 템플릿 메서드 패턴보다는 전략 패턴을 더 많이 사용한다.</ul><h3 id="설계원칙">설계원칙</h3><ul><li>개방폐쇄원칙(OCP)와 의존역전원칙(DIP)가 적용되었다.</ul><h2 id="템플릿-콜백-패턴template-callback-pattern-견본회신-패턴">템플릿 콜백 패턴(Template Callback Pattern 견본/회신 패턴)</h2><ul><li>전략 패턴의 변형이다. 전략을 익명 내부 클래스로 정의해서 사용한다.<li>스프링 3대 프로그래밍 모델 중 하나인 <strong>DI에서 사용</strong>한다.</ul><div class="language-java highlighter-rouge"><div class="code-header" text-data="java"><button data-original-title="Copied!"><i class="far fa-clone"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+</pre><td class="rouge-code"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Client</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">Soldier</span> <span class="n">rambo</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Soldier</span><span class="o">();</span>
+        
+        <span class="c1">// 총을 군인 람보에게 전달해서 전투를 수행하게한다.</span>
+        <span class="n">rambo</span><span class="o">.</span><span class="na">runContext</span><span class="o">(</span><span class="k">new</span> <span class="nc">Strategy</span><span class="o">()</span> <span class="o">{</span>
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">runStrategy</span><span class="o">()</span> <span class="o">{</span>
+                <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Gun"</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">});</span>
+        
+        <span class="c1">// 검을 군인 람보에게 전달해서 전투를 수행하게한다.</span>
+        <span class="n">rambo</span><span class="o">.</span><span class="na">runContext</span><span class="o">(</span><span class="k">new</span> <span class="nc">Strategy</span><span class="o">()</span> <span class="o">{</span>
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">runStrategy</span><span class="o">()</span> <span class="o">{</span>
+                <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Sword"</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">});</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></table></code></div></div><h3 id="설계원칙-1">설계원칙</h3><ul><li>전략 패턴과 동일하게 개방폐쇄원칙(OCP)와 의존역전원칙(DIP)가 적용되었다.</ul><h2 id="출처">출처</h2><p>스프링 입문을 위한 자바 객체 지향의 원리와 이해</p></div><div class="post-tail-wrapper text-muted"><div class="post-meta mb-3"> <i class="far fa-folder-open fa-fw mr-1"></i> <a href='/categories/cs/'>CS</a></div><div class="post-tags"> <i class="fa fa-tags fa-fw mr-1"></i> <a href="/tags/cs/" class="post-tag no-text-decoration" >CS</a></div><div class="post-tail-bottom d-flex justify-content-between align-items-center mt-3 pt-5 pb-2"><div class="license-wrapper"> This post is licensed under <a href="https://creativecommons.org/licenses/by/4.0/"> CC BY 4.0 </a> by the author.</div><div class="share-wrapper"> <span class="share-label text-muted mr-1">Share</span> <span class="share-icons"> <a href="https://twitter.com/intent/tweet?text=[CS] Design pattern 디자인패턴2 - 포스트잇&url=https://km-so-yeon.github.io/posts/CS-DesignPattern2/" data-toggle="tooltip" data-placement="top" title="Twitter" target="_blank" rel="noopener" aria-label="Twitter"> <i class="fa-fw fab fa-twitter"></i> </a> <a href="https://www.facebook.com/sharer/sharer.php?title=[CS] Design pattern 디자인패턴2 - 포스트잇&u=https://km-so-yeon.github.io/posts/CS-DesignPattern2/" data-toggle="tooltip" data-placement="top" title="Facebook" target="_blank" rel="noopener" aria-label="Facebook"> <i class="fa-fw fab fa-facebook-square"></i> </a> <a href="https://telegram.me/share?text=[CS] Design pattern 디자인패턴2 - 포스트잇&url=https://km-so-yeon.github.io/posts/CS-DesignPattern2/" data-toggle="tooltip" data-placement="top" title="Telegram" target="_blank" rel="noopener" aria-label="Telegram"> <i class="fa-fw fab fa-telegram"></i> </a> <i id="copy-link" class="fa-fw fas fa-link small" data-toggle="tooltip" data-placement="top" title="Copy link" title-succeed="Link copied successfully!"> </i> </span></div></div></div></div></div><div id="panel-wrapper" class="col-xl-3 pl-2 text-muted topbar-down"><div class="access"><div id="access-lastmod" class="post"> <span>Recent Update</span><ul class="post-content pl-0 pb-1 ml-1 mt-2"><li><a href="/posts/Web-Jwt/">[Web] JWT</a><li><a href="/posts/Spring-ApplicationContext/">[Spring] ApplicationContext의 구현체</a><li><a href="/posts/Language-Lambda-Stream/">[Java] 람다(Lambda) 표현식과 스트림(Stream)</a><li><a href="/posts/CS-Design-Pattern-Structural/">[CS] 디자인패턴 - 구조패턴</a><li><a href="/posts/CS-Design-Pattern-Creational/">[CS] 디자인패턴 - 생성패턴</a></ul></div><div id="access-tags"> <span>Trending Tags</span><div class="d-flex flex-wrap mt-3 mb-1 mr-3"> <a class="post-tag" href="/tags/java/">Java</a> <a class="post-tag" href="/tags/spring/">Spring</a> <a class="post-tag" href="/tags/cs/">CS</a> <a class="post-tag" href="/tags/web/">Web</a> <a class="post-tag" href="/tags/aws/">AWS</a> <a class="post-tag" href="/tags/javascript/">Javascript</a> <a class="post-tag" href="/tags/jpa/">JPA</a> <a class="post-tag" href="/tags/algorithm/">Algorithm</a> <a class="post-tag" href="/tags/python/">Python</a> <a class="post-tag" href="/tags/cookie/">Cookie</a></div></div></div><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@1.0.1/dist/bootstrap-toc.min.js"></script><div id="toc-wrapper" class="pl-0 pr-4 mb-5"> <span class="pl-3 pt-2 mb-2">Contents</span><nav id="toc" data-toggle="toc"></nav></div></div></div><div class="row"><div class="col-12 col-lg-11 col-xl-8"><div id="post-extend-wrapper" class="pl-1 pr-1 pl-sm-2 pr-sm-2 pl-md-4 pr-md-4"><div id="related-posts" class="mt-5 mb-2 mb-sm-4"><h3 class="pt-2 mt-1 mb-4 ml-1" data-toc-skip>Further Reading</h3><div class="card-deck mb-4"><div class="card"> <a href="/posts/CS-Design-Pattern-Creational/"><div class="card-body"> <span class="timeago small" >Aug 22<i class="unloaded">2023-08-22T09:00:00+09:00</i> </span><h3 class="pt-0 mt-1 mb-3" data-toc-skip>[CS] 디자인패턴 - 생성패턴</h3><div class="text-muted small"><p> 디자인패턴 (Design Pattern) 디자인패턴이란 소프트웨어 개발 과정에서 발견된 설계의 노하우를 축적하여 그 방법에 이름을 붙여서 이후에 재사용하기 좋은 형태로 특정 규약을 만들어서 정리한 것이다. 즉, 효율적인 코드를 만들기 위한 방법론이라고 생각하면 된다. 디자인패턴에는 생성패턴, 구조패턴, 행동패턴으로 분류된다. ...</p></div></div></a></div><div class="card"> <a href="/posts/CS-Design-Pattern-Structural/"><div class="card-body"> <span class="timeago small" >Aug 24<i class="unloaded">2023-08-24T09:00:00+09:00</i> </span><h3 class="pt-0 mt-1 mb-3" data-toc-skip>[CS] 디자인패턴 - 구조패턴</h3><div class="text-muted small"><p> 구조패턴 클래스나 객체를 조합해 더 큰 구조를 만드는 패턴이다. 예를 들면 서로 다른 인터페이스를 지닌 2개의 객체를 묶어서 단일 인터페이스로 제공하거나, 서로 다른 객체들을 묶어 새로운 기능을 제공하는 패턴이 있다. 어댑터(Adapter) 호환되지 않는 인터페이스들을 연결하는 디자인 패턴이다. 호출당하는 쪽의 메서드를 호출하는 쪽의 코드에 ...</p></div></div></a></div><div class="card"> <a href="/posts/CS-Design-Pattern-Behavioral/"><div class="card-body"> <span class="timeago small" >Aug 28<i class="unloaded">2023-08-28T09:00:00+09:00</i> </span><h3 class="pt-0 mt-1 mb-3" data-toc-skip>[CS] 디자인패턴 - 행동패턴</h3><div class="text-muted small"><p> 행동패턴 클라스나 객체들이 서로 상호작용하는 방법이나 책임 분배 방법을 정의하는 패턴이다. 책임 연쇄(Chain of Responsibility) 요청을 처리할 수 있는 객체가 둘 이상 존재하여 한 객체가 처리하지 못하면 다음 객체로 넘어가는 형태의 패턴이다. 클라이언트 요청에 대한 처리를 여러 개의 객체를 나누고, 이들을 사슬(Chain)처럼 ...</p></div></div></a></div></div></div><div class="post-navigation d-flex justify-content-between"> <a href="/posts/CS-DesignPattern/" class="btn btn-outline-primary" prompt="Older"><p>[CS] Design pattern 디자인패턴</p></a> <a href="/posts/Java-Method-Reference/" class="btn btn-outline-primary" prompt="Newer"><p>[Java] 메소드 레퍼런스(Method Reference, 메소드 참조)</p></a></div><script src="https://utteranc.es/client.js" repo="km-so-yeon/km-so-yeon.github.io" issue-term="pathname" label="comments" theme="github-light" crossorigin="anonymous" async> </script></div></div></div><footer class="d-flex w-100 justify-content-center"><div class="d-flex justify-content-between align-items-center"><div class="footer-left"><p class="mb-0"> © 2023 <a href="https://twitter.com/username">김소연</a>. <span data-toggle="tooltip" data-placement="top" title="Except where otherwise noted, the blog posts on this site are licensed under the Creative Commons Attribution 4.0 International (CC BY 4.0) License by the author.">Some rights reserved.</span></p></div><div class="footer-right"><p class="mb-0"> Powered by <a href="https://jekyllrb.com" target="_blank" rel="noopener">Jekyll</a> with <a href="https://github.com/cotes2020/jekyll-theme-chirpy" target="_blank" rel="noopener">Chirpy</a> theme.</p></div></div></footer></div><div id="search-result-wrapper" class="d-flex justify-content-center unloaded"><div class="col-12 col-sm-11 post-content"><div id="search-hints"><h4 class="text-muted mb-4">Trending Tags</h4><a class="post-tag" href="/tags/java/">Java</a> <a class="post-tag" href="/tags/spring/">Spring</a> <a class="post-tag" href="/tags/cs/">CS</a> <a class="post-tag" href="/tags/web/">Web</a> <a class="post-tag" href="/tags/aws/">AWS</a> <a class="post-tag" href="/tags/javascript/">Javascript</a> <a class="post-tag" href="/tags/jpa/">JPA</a> <a class="post-tag" href="/tags/algorithm/">Algorithm</a> <a class="post-tag" href="/tags/python/">Python</a> <a class="post-tag" href="/tags/cookie/">Cookie</a></div><div id="search-results" class="d-flex flex-wrap justify-content-center text-muted mt-3"></div></div></div></div><div id="mask"></div><a id="back-to-top" href="#" aria-label="back-to-top" class="btn btn-lg btn-box-shadow" role="button"> <i class="fas fa-angle-up"></i> </a> <script src="https://cdn.jsdelivr.net/npm/simple-jekyll-search@1.10.0/dest/simple-jekyll-search.min.js"></script> <script> SimpleJekyllSearch({ searchInput: document.getElementById('search-input'), resultsContainer: document.getElementById('search-results'), json: '/assets/js/data/search.json', searchResultTemplate: '<div class="pl-1 pr-1 pl-sm-2 pr-sm-2 pl-lg-4 pr-lg-4 pl-xl-0 pr-xl-0"> <a href="https://km-so-yeon.github.io{url}">{title}</a><div class="post-meta d-flex flex-column flex-sm-row text-muted mt-1 mb-1"> {categories} {tags}</div><p>{snippet}</p></div>', noResultsText: '<p class="mt-5">Oops! No result founds.</p>', templateMiddleware: function(prop, value, template) { if (prop === 'categories') { if (value === '') { return `${value}`; } else { return `<div class="mr-sm-4"><i class="far fa-folder fa-fw"></i>${value}</div>`; } } if (prop === 'tags') { if (value === '') { return `${value}`; } else { return `<div><i class="fa fa-tag fa-fw"></i>${value}</div>`; } } } }); </script> <script src="https://cdn.jsdelivr.net/combine/npm/lozad/dist/lozad.min.js,npm/magnific-popup@1/dist/jquery.magnific-popup.min.js,npm/clipboard@2/dist/clipboard.min.js"></script> <script defer src="/assets/js/dist/post.min.js"></script> <script src="https://cdn.jsdelivr.net/combine/npm/popper.js@1.16.1,npm/bootstrap@4/dist/js/bootstrap.min.js"></script> <script defer src="/app.js"></script> <script defer src="https://www.googletagmanager.com/gtag/js?id="></script> <script> document.addEventListener("DOMContentLoaded", function(event) { window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', ''); }); </script>
